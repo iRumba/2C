@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Core.Models;
+using Core.Utils;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -8,9 +10,14 @@ using System.Threading.Tasks;
 
 namespace Core.Adapters
 {
-    public abstract class BaseAdapter<T> where T : class
+    internal class BaseAdapter<TModel> where TModel : BaseModel
     {
-        public T GetModelFromDataSet(DataSet ds)
+        internal BaseAdapter()
+        {
+
+        }
+
+        public TModel GetModelFromDataSet(DataSet ds)
         {
             if (ds.Tables.Count != 1)
                 return null;
@@ -22,13 +29,13 @@ namespace Core.Adapters
             return GetModelFromDataRow(row);
         }
 
-        public List<T> GetModelListFromDataSet(DataSet ds)
+        public List<TModel> GetModelListFromDataSet(DataSet ds)
         {
             if (ds.Tables.Count != 1)
                 return null;
 
             var table = ds.Tables[0];
-            var res = new List<T>();
+            var res = new List<TModel>();
 
             foreach(DataRow row in table.Rows)
             {
@@ -38,18 +45,30 @@ namespace Core.Adapters
             return res;
         }
 
-        public async Task<T> GetModelFromDataSetAsync(DataSet ds)
+        public async Task<TModel> GetModelFromDataSetAsync(DataSet ds)
         {
-            Func<T> func = () => GetModelFromDataSet(ds);
+            Func<TModel> func = () => GetModelFromDataSet(ds);
             return await Task.Run(func);
         }
 
-        public async Task<List<T>> GetModelListFromDataSetAsync(DataSet ds)
+        public async Task<List<TModel>> GetModelListFromDataSetAsync(DataSet ds)
         {
-            Func<List<T>> func = () => GetModelListFromDataSet(ds);
+            Func<List<TModel>> func = () => GetModelListFromDataSet(ds);
             return await Task.Run(func);
         }
 
-        protected abstract T GetModelFromDataRow(DataRow row);
+        protected virtual TModel GetModelFromDataRow(DataRow row)
+        {
+            var res = Activator.CreateInstance<TModel>();
+            var idField = ModelHelper.GetIdFieldName<TModel>();
+            res.Id = row.Field<int>(idField);
+            var mappingInfoList = ModelHelper.GetMappingInfo<TModel>();
+            foreach(var mi in mappingInfoList)
+            {
+                if (row.Table.Columns.Contains(mi.FieldName))
+                    mi.Property.SetValue(res, row.IsNull(mi.FieldName) ? null : row[mi.FieldName]);
+            }
+            return res;
+        }
     }
 }

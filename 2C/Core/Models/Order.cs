@@ -9,9 +9,8 @@ namespace Core.Models
     /// <summary>
     /// Заказ
     /// </summary>
-    public class Order
+    public class Order : BaseModel
     {
-        public int Id { get; set; }
         public DateTime? DepartureDate { get; set; }
         public Purchaser Purchaser { get; set; }
         public DateTime? ArrivalDate { get; set; }

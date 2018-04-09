@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace Core.Models
 {
-    /// <summary>
-    /// Детали заказа
-    /// </summary>
-    public class OrderDetails : BaseModel
+    public class ArrivalDetails : BaseModel
     {
+        public Arrival Arrival { get; set; }
         public Goods Goods { get; set; }
-        public Order Order { get; set; }
-        public double Amount { get; set; }
+        public int Amount { get; set; }
+        public decimal Price { get; set; }
     }
 }

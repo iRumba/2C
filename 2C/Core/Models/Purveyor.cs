@@ -9,9 +9,8 @@ namespace Core.Models
     /// <summary>
     /// Поставщик
     /// </summary>
-    public class Purveyor
+    public class Purveyor : BaseModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string TelephoneNumber { get; set; }
     }

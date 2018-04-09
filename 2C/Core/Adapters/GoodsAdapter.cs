@@ -1,4 +1,5 @@
 ﻿using Core.Models;
+using Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,20 +10,16 @@ using System.Threading.Tasks;
 
 namespace Core.Adapters
 {
-    public class GoodsAdapter : BaseAdapter<Goods>
+    internal class GoodsAdapter : BaseAdapter<Goods>
     {
         protected override Goods GetModelFromDataRow(DataRow row)
         {
-            var res = new Goods
-            {
-                Id = row.Field<int>("Id"),
-                Markup = row.Field<float>("Markup"),
-                Name = row.Field<string>("Name")
-            };
+            var res = new Goods();
+            res.Id = row.Field<int>(ModelHelper.GetIdFieldName<Goods>());
+            res.Markup = row.Field<double>("Markup");
+            res.Name = row.Field<string>("Name");
 
-            var filePath = row.Field<string>("Image");
-            if (!string.IsNullOrWhiteSpace(filePath) && File.Exists(filePath))
-                res.Image = File.ReadAllBytes(filePath);
+            res.Image = row.Field<string>("Image");
 
             return res;
         }

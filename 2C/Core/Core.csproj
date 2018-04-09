@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,10 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\AdaptersManager.cs" />
     <Compile Include="Adapters\BaseAdapter.cs" />
     <Compile Include="Adapters\GoodsAdapter.cs" />
+    <Compile Include="Adapters\PurveyorAdapter.cs" />
+    <Compile Include="Attributes\IdFieldNameAttribute.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Models\Arrival.cs" />
+    <Compile Include="Models\ArrivalDetails.cs" />
+    <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Goods.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetails.cs" />
@@ -55,6 +61,8 @@
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\GoodsRepository.cs" />
     <Compile Include="Repositories\RepositoryManager.cs" />
+    <Compile Include="Utils\MappingInfo.cs" />
+    <Compile Include="Utils\ModelHelper.cs" />
     <Compile Include="Utils\SqlCommandHelper.cs" />
   </ItemGroup>
   <ItemGroup />

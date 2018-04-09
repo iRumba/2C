@@ -10,38 +10,16 @@ using System.Threading.Tasks;
 
 namespace Core.Repositories
 {
-    public class ArrivalRepository : BaseRepository
+    public class ArrivalRepository : BaseRepository<Arrival>
     {
         public ArrivalRepository(string connectionString) : base(connectionString)
         {
 
         }
 
-        public async Task<Arrival> GetById(int id)
-        {
-            using (var con = GetConnection())
-            {
-                await con.OpenAsync();
-                using (var com = con.CreateCommand())
-                {
-                    com.CommandType = CommandType.Text;
-                    com.CommandText = @"SELECT Id, Amount, Date, Price FROM Arrival WHERE Id = @id";
-                    com.Parameters.Add("@id", SqlDbType.Int).Value = id;
-                    using (var reader = await com.ExecuteReaderAsync())
-                    {
-                        if (!await reader.ReadAsync())
-                            return null;
-                        var res = new Arrival
-                        {
-                            Id = await reader.GetFieldValueAsync<int>(0),
-                            Amount = await reader.GetFieldValueAsync<double>(1),
-                            Date = await reader.GetFieldValueAsync<DateTime>(2),
-                            Price = await reader.GetFieldValueAsync<decimal>(3)
-                        };
-                        return res;
-                    }                
-                }
-            }
-        }
+        //protected override IEnumerable<string> GetFields()
+        //{
+        //    return base.GetFields().Concat(new string[] { "Amount", "Date", "Price" });
+        //}
     }
 }

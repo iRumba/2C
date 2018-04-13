@@ -15,5 +15,6 @@ namespace Core.Models
     {
         public Purveyor Purveyor { get; set; }
         public DateTime Date { get; set; }
+        public List<ArrivalDetails> ArrivalDetails { get; set; }
     }
 }

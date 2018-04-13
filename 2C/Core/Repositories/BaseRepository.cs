@@ -110,6 +110,103 @@ namespace Core.Repositories
             return res;
         }
 
+        public async Task<List<TModel>> Add(List<TModel> models)
+        {
+            var parameters = new List<SqlParameter>();
+            var sb = new StringBuilder(GetSimpleInsert());
+            var preCounter = 0;
+            foreach(var model in models)
+            {
+                if (preCounter == 0)
+                    sb.Append(" VALUES ");
+                else
+                    sb.Append(",");
+                var counter = 0;
+                foreach (var mi in ModelHelper.GetMappingInfo<TModel>().Where(info => info.FieldName != ModelHelper.GetIdFieldName<TModel>()))
+                {
+                    if (counter == 0)
+                        sb.Append("(");
+                    var pName = $"@p{preCounter}_{counter}";
+                    object value = null;
+                    switch (mi.MappingType)
+                    {
+                        case Utils.MappingType.Direct:
+                            value = mi.Property.GetValue(model);
+                            break;
+                        case Utils.MappingType.ForeignKey:
+                            var fModel = mi.Property.GetValue(model) as TModel;
+                            if (fModel != null)
+                                value = fModel.Id;
+                            break;
+                    }
+                    var param = new SqlParameter(pName, value ?? DBNull.Value);
+                    parameters.Add(param);
+                    sb.Append($"{pName},");
+                    counter++;
+                }
+                if (counter > 0)
+                {
+                    sb.Remove(sb.Length - 1, 1);
+                    sb.Append(")");
+                }
+                preCounter++;
+            }
+            var res = await QueryToModelList(sb.ToString(), parameters);
+            return res;
+        }
+
+        public async Task<bool> Update(TModel model)
+        {
+            if (model.Id < 1)
+                throw new InvalidOperationException("Нельзя изменить объект, так как он не существует");
+
+            var parameters = new List<SqlParameter>();
+            var sb = new StringBuilder($"UPDATE {ModelHelper.GetModelTableName<TModel>()} SET ");
+            var idFieldName = ModelHelper.GetIdFieldName<TModel>();
+            var counter = 0;
+            foreach (var mi in ModelHelper.GetMappingInfo<TModel>().Where(info => info.FieldName != idFieldName))
+            {
+                if (counter > 0)
+                    sb.Append(",");
+                var pName = $"@{mi.FieldName}";
+                sb.Append($"{mi.FieldName}={pName}");
+                object value = null;
+                switch (mi.MappingType)
+                {
+                    case Utils.MappingType.Direct:
+                        value = mi.Property.GetValue(model);
+                        break;
+                    case Utils.MappingType.ForeignKey:
+                        var fModel = mi.Property.GetValue(model) as TModel;
+                        if (fModel != null)
+                            value = fModel.Id;
+                        break;
+                }
+                var param = new SqlParameter(pName, value ?? DBNull.Value);
+                parameters.Add(param);
+                counter++;
+            }
+            parameters.Add(new SqlParameter($"@{idFieldName}", model.Id));
+            sb.Append($" WHERE {idFieldName}=@{idFieldName}");
+            var res = await ExecuteQuery(sb.ToString(), parameters);
+            return res;
+        }
+
+        protected async Task<bool> ExecuteQuery(string query, IEnumerable<SqlParameter> parameters)
+        {
+            using (var con = GetConnection())
+            {
+                await con.OpenAsync();
+                using (var com = con.CreateCommand())
+                {
+                    com.CommandType = CommandType.Text;
+                    com.CommandText = query;
+                    com.Parameters.AddRange(parameters.ToArray());
+                    return await com.ExecuteNonQueryAsync() > 0;
+                }
+            }
+        }
+
         protected async Task<TModel> QueryToModel(string query, IEnumerable<SqlParameter> parameters)
         {
             using (var con = GetConnection())

@@ -34,6 +34,18 @@ namespace Core.Repositories
                 return new GoodsRepository(_connectionString);
             else if (type == typeof(Arrival))
                 return new ArrivalRepository(_connectionString);
+            else if (type == typeof(ArrivalDetails))
+                return new ArrivalDetailsRepository(_connectionString);
+            else if (type == typeof(Purveyor))
+                return new PurveyorRepository(_connectionString);
+            else if (type == typeof(OrderDetails))
+                return new OrderDetailsRepository(_connectionString);
+            else if (type == typeof(Worker))
+                return new WorkerRepository(_connectionString);
+            else if (type == typeof(Purchaser))
+                return new PurchaserRepository(_connectionString);
+            else if (type == typeof(Order))
+                return new OrderRepository(_connectionString);
             return null;
         }
     }

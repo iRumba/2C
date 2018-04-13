@@ -57,10 +57,16 @@
     <Compile Include="Models\Purveyor.cs" />
     <Compile Include="Models\Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ArrivalDetailsRepository.cs" />
     <Compile Include="Repositories\ArrivalRepository.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\GoodsRepository.cs" />
+    <Compile Include="Repositories\OrderDetailsRepository.cs" />
+    <Compile Include="Repositories\OrderRepository.cs" />
+    <Compile Include="Repositories\PurchaserRepository.cs" />
+    <Compile Include="Repositories\PurveyorRepository.cs" />
     <Compile Include="Repositories\RepositoryManager.cs" />
+    <Compile Include="Repositories\WorkerRepository.cs" />
     <Compile Include="Utils\MappingInfo.cs" />
     <Compile Include="Utils\ModelHelper.cs" />
     <Compile Include="Utils\SqlCommandHelper.cs" />

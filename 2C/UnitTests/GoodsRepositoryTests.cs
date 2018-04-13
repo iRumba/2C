@@ -42,7 +42,6 @@ namespace UnitTests
         {
             var res = await _rep.GetAll();
             Assert.IsNotNull(res);
-            Assert.AreEqual(res.Count, 1);
         }
 
         [TestMethod]
@@ -55,6 +54,29 @@ namespace UnitTests
             var res = await _rep.Add(g);
             Assert.IsNotNull(res);
             Assert.AreEqual(res.Id, 2);
+        }
+
+        [TestMethod]
+        public async Task UpdateTestMethod()
+        {
+            var newName = "iPhone 4";
+            var g = await _rep.GetById(1);
+            g.Name = newName;
+            g.Markup = 0.3;
+            Assert.IsTrue(await _rep.Update(g));
+            var newG = await _rep.GetById(1);
+            Assert.AreEqual(g.Name, newG.Name);
+        }
+
+        [TestMethod]
+        public async Task GetDetailsTestMethod()
+        {
+            var g = await _rep.GetById(1);
+            var r = (GoodsRepository)_rep;
+            var det = await r.GetDetails(g.Id);
+            Assert.IsNotNull(det);
+            Assert.IsNull(det.Item1);
+            Assert.AreEqual(det.Item2, 0);
         }
 
         //[TestMethod]

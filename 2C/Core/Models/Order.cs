@@ -11,6 +11,7 @@ namespace Core.Models
     /// </summary>
     public class Order : BaseModel
     {
+        public DateTime OrderDate { get; set; }
         public DateTime? DepartureDate { get; set; }
         public Purchaser Purchaser { get; set; }
         public DateTime? ArrivalDate { get; set; }

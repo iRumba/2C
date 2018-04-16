@@ -43,10 +43,9 @@
   <ItemGroup>
     <Compile Include="Adapters\AdaptersManager.cs" />
     <Compile Include="Adapters\BaseAdapter.cs" />
-    <Compile Include="Adapters\GoodsAdapter.cs" />
-    <Compile Include="Adapters\PurveyorAdapter.cs" />
     <Compile Include="Attributes\IdFieldNameAttribute.cs" />
-    <Compile Include="Class1.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Instance.cs" />
     <Compile Include="Models\Arrival.cs" />
     <Compile Include="Models\ArrivalDetails.cs" />
     <Compile Include="Models\BaseModel.cs" />
@@ -67,6 +66,7 @@
     <Compile Include="Repositories\PurveyorRepository.cs" />
     <Compile Include="Repositories\RepositoryManager.cs" />
     <Compile Include="Repositories\WorkerRepository.cs" />
+    <Compile Include="Utils\DbManager.cs" />
     <Compile Include="Utils\MappingInfo.cs" />
     <Compile Include="Utils\ModelHelper.cs" />
     <Compile Include="Utils\SqlCommandHelper.cs" />

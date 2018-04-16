@@ -13,6 +13,7 @@ namespace Core.Models
     {
         public Goods Goods { get; set; }
         public Order Order { get; set; }
-        public double Amount { get; set; }
+        public int Amount { get; set; }
+        public decimal Price { get; set; }
     }
 }

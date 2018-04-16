@@ -15,6 +15,7 @@ namespace Core.Utils
         static Dictionary<Type, List<MappingInfo>> _mappingCache = new Dictionary<Type, List<MappingInfo>>();
         static Dictionary<Type, string> _tableNamesCache = new Dictionary<Type, string>();
         static Dictionary<Type, string> _idFieldsCache = new Dictionary<Type, string>();
+        static Dictionary<Type, Dictionary<string, string>> _columnNamesCache = new Dictionary<Type, Dictionary<string, string>>();
 
         internal static string GetIdFieldName(Type modelType)
         {
@@ -82,7 +83,40 @@ namespace Core.Utils
             return res;
         }
 
-        static string GetFKFieldName(PropertyInfo prop)
+        internal static string GetColumnName<TModel>(string modelFieldName) where TModel : BaseModel
+        {
+            return GetColumnName(typeof(TModel), modelFieldName);
+        }
+
+        internal static string GetColumnName(Type modelType, string modelFieldName)
+        {
+            if (_columnNamesCache.ContainsKey(modelType) && _columnNamesCache[modelType].ContainsKey(modelFieldName))
+                return _columnNamesCache[modelType][modelFieldName];
+
+            string res = null;
+
+            var prop = modelType.GetProperty(modelFieldName);
+            if (prop == null)
+                return res;
+
+            var listType = typeof(IEnumerable<BaseModel>);
+            var otherModelType = typeof(BaseModel);
+
+            if (listType.IsAssignableFrom(prop.PropertyType))
+                return res;
+            if (modelType.IsAssignableFrom(prop.PropertyType))
+                res = GetFKFieldName(prop);
+            else
+                res = GetDirectFieldName(prop);
+
+            if (!_columnNamesCache.ContainsKey(modelType))
+                _columnNamesCache[modelType] = new Dictionary<string, string>();
+
+            _columnNamesCache[modelType][modelFieldName] = res;
+            return res;
+        }
+
+        internal static string GetFKFieldName(PropertyInfo prop)
         {
             var fkAttribute = prop.GetCustomAttribute<ForeignKeyAttribute>();
             if (fkAttribute == null)
@@ -90,7 +124,7 @@ namespace Core.Utils
             return fkAttribute.Name;
         }
 
-        static string GetDirectFieldName(PropertyInfo prop)
+        internal static string GetDirectFieldName(PropertyInfo prop)
         {
             var fnAttribute = prop.GetCustomAttribute<ColumnAttribute>();
             if (fnAttribute == null)

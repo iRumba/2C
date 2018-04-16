@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Core
 {
-    public class Class1
+    public class Configuration
     {
+        public string ConnectionString { get; set; }
     }
 }

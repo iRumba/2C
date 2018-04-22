@@ -1,4 +1,5 @@
 ﻿using Core.Models;
+using Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Core.Repositories
 {
     public class PurveyorRepository : BaseRepository<Purveyor>
     {
-        internal PurveyorRepository(string connectionString) : base(connectionString)
+        internal PurveyorRepository(DbManager dbManager) : base(dbManager)
         {
 
         }

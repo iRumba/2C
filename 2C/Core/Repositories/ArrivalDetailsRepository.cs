@@ -11,7 +11,7 @@ namespace Core.Repositories
 {
     public class ArrivalDetailsRepository : BaseRepository<ArrivalDetails>
     {
-        internal ArrivalDetailsRepository(string connectionString) : base(connectionString)
+        internal ArrivalDetailsRepository(DbManager dbManager) : base(dbManager)
         {
         }
 
@@ -24,6 +24,25 @@ namespace Core.Repositories
             var query = $"{GetSimpleQuery()} WHERE {ModelHelper.GetColumnName<ArrivalDetails>(nameof(ArrivalDetails.Arrival))}={param.ParameterName}";
 
             parameters.Add(param);
+
+            var res = await QueryToModelList(query, parameters);
+
+            return res;
+        }
+
+        public async Task<List<ArrivalDetails>> GetByArrivalId(IEnumerable<int> arrivalIds)
+        {
+            var parameters = new List<SqlParameter>();
+
+            var paramNames = new List<string>();
+            foreach (var arrivalId in arrivalIds.Select((id, i) => new { Id = id, Ind = i }))
+            {
+                var param = new SqlParameter($"@arrivalId{arrivalId.Ind}", arrivalId.Id);
+                paramNames.Add(param.ParameterName);
+                parameters.Add(param);
+            }
+
+            var query = $"{GetSimpleQuery()} WHERE {ModelHelper.GetColumnName<ArrivalDetails>(nameof(ArrivalDetails.Arrival))} IN ({string.Join(",", paramNames)})";
 
             var res = await QueryToModelList(query, parameters);
 

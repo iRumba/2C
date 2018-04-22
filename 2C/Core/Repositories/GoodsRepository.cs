@@ -13,7 +13,7 @@ namespace Core.Repositories
 {
     public class GoodsRepository : BaseRepository<Goods>
     {
-        internal GoodsRepository(string connectionString) : base(connectionString)
+        internal GoodsRepository(DbManager dbManager) : base(dbManager)
         {
 
         }
@@ -74,7 +74,7 @@ namespace Core.Repositories
                         while (await reader.ReadAsync())
                         {
                             var id = await reader.GetFieldValueAsync<int>(0);
-                            var price = await reader.IsDBNullAsync(0) ? default(decimal?) : await reader.GetFieldValueAsync<decimal>(1);
+                            var price = await reader.IsDBNullAsync(1) ? default(decimal?) : await reader.GetFieldValueAsync<decimal>(1);
                             var balance = await reader.GetFieldValueAsync<int>(2);
                             res.Add(new Tuple<int, decimal?, int>(id, price, balance));
                         }

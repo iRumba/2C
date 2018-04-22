@@ -17,7 +17,7 @@ namespace UnitTests
 
         public GoodsRepositoryTests()
         {
-            _repManager = new RepositoryManager(Configuration.CONNECTION_STRING);
+            //_repManager = new RepositoryManager(Configuration.CONNECTION_STRING);
             _rep = _repManager.GetRepository<Goods>();
         }
 

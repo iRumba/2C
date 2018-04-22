@@ -66,6 +66,7 @@
     <Compile Include="Repositories\PurveyorRepository.cs" />
     <Compile Include="Repositories\RepositoryManager.cs" />
     <Compile Include="Repositories\WorkerRepository.cs" />
+    <Compile Include="SimpleIoc.cs" />
     <Compile Include="Utils\DbManager.cs" />
     <Compile Include="Utils\MappingInfo.cs" />
     <Compile Include="Utils\ModelHelper.cs" />

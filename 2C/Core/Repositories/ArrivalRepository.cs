@@ -13,7 +13,7 @@ namespace Core.Repositories
 {
     public class ArrivalRepository : BaseRepository<Arrival>
     {
-        public ArrivalRepository(string connectionString) : base(connectionString)
+        public ArrivalRepository(DbManager dbManager) : base(dbManager)
         {
 
         }

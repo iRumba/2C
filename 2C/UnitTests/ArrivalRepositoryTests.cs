@@ -13,7 +13,7 @@ namespace UnitTests
         [TestMethod]
         public async Task GetByIdTestMethod()
         {
-            var res = await Repository.GetById(1);
+            var res = (object)null;// await Repository.GetById(1);
             Assert.IsNull(res);
         }
     }

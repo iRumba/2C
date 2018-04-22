@@ -31,6 +31,11 @@ namespace Core.Utils
             return res;
         }
 
+        internal static string GetIdFieldName(this BaseModel model)
+        {
+            return GetIdFieldName(model.GetType());
+        }
+
         internal static string GetIdFieldName<TModel>() where TModel : BaseModel
         {
             return GetIdFieldName(typeof(TModel));
@@ -53,6 +58,11 @@ namespace Core.Utils
         internal static string GetModelTableName<TModel>() where TModel : BaseModel
         {
             return GetModelTableName(typeof(TModel));
+        }
+
+        internal static string GetModelTableName(this BaseModel model)
+        {
+            return GetModelTableName(model.GetType());
         }
 
         internal static List<MappingInfo> GetMappingInfo<TModel>() where TModel : BaseModel
@@ -81,6 +91,11 @@ namespace Core.Utils
 
             _mappingCache[baseModelType] = res;
             return res;
+        }
+
+        internal static List<MappingInfo> GetMappingInfo(this BaseModel model)
+        {
+            return GetMappingInfo(model.GetType());
         }
 
         internal static string GetColumnName<TModel>(string modelFieldName) where TModel : BaseModel
@@ -114,6 +129,11 @@ namespace Core.Utils
 
             _columnNamesCache[modelType][modelFieldName] = res;
             return res;
+        }
+
+        internal static string GetColumnName(this BaseModel model, string modelFieldName)
+        {
+            return GetColumnName(model.GetType(), modelFieldName);
         }
 
         internal static string GetFKFieldName(PropertyInfo prop)

@@ -1,4 +1,5 @@
 ﻿using Core.Models;
+using Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Core.Repositories
 {
     internal class WorkerRepository : BaseRepository<Worker>
     {
-        internal WorkerRepository(string connectionString) : base(connectionString)
+        internal WorkerRepository(DbManager dbManager) : base(dbManager)
         {
         }
     }

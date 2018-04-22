@@ -14,18 +14,16 @@ namespace Core.Repositories
 {
     public abstract class BaseRepository<TModel> where TModel : BaseModel
     {
-        protected string _connectionString;
-        //protected BaseAdapter<TModel> _adapter;
+        protected DbManager _dbManager;
 
-        protected BaseRepository(string connectionString)
+        protected BaseRepository(DbManager dbManager)
         {
-            _connectionString = connectionString;
+            _dbManager = dbManager;
         }
 
         protected SqlConnection GetConnection()
         {
-            var res = new SqlConnection(_connectionString);
-            return res;
+            return _dbManager.GetConnection();
         }
 
         public async Task<TModel> GetById(int id)
@@ -43,28 +41,24 @@ namespace Core.Repositories
         public async Task<List<TModel>> GetByIds(IEnumerable<int> ids)
         {
             var parameters = new List<SqlParameter>();
-            var sb = new StringBuilder($"{GetSimpleQuery()} WHERE ");
-            if (!ids.Any())
-                sb.Append("0=1");
-            else
+            var paramNames = new List<string>();
+            var counter = 0;
+
+            foreach (var id in ids)
             {
-                var counter = 0;
-
-                foreach (var id in ids)
+                var param = new SqlParameter($"@id{counter}", SqlDbType.Int)
                 {
-                    if (counter > 0)
-                        sb.Append(" OR ");
-                    var param = new SqlParameter($"@id{counter}", SqlDbType.Int)
-                    {
-                        Value = id
-                    };
-                    parameters.Add(param);
-                    sb.Append($"{ModelHelper.GetIdFieldName<TModel>()}=@id{counter}");
-                    counter++;
-                }
-            }
+                    Value = id
+                };
+                parameters.Add(param);
+                paramNames.Add(param.ParameterName);
 
-            return await QueryToModelList(sb.ToString(), parameters);
+                counter++;
+            }
+            var filter = paramNames.Any() ? $"{ModelHelper.GetIdFieldName<TModel>()} IN ({string.Join(",", paramNames)})" : "0=1";
+            var query = $"{GetSimpleQuery()} WHERE {filter}";
+
+            return await QueryToModelList(query, parameters);
         }
 
         public async Task<List<TModel>> GetAll()
@@ -79,7 +73,7 @@ namespace Core.Repositories
             var parameters = new List<SqlParameter>();
             var sb = new StringBuilder(GetSimpleInsert());
             var counter = 0;
-            foreach(var mi in ModelHelper.GetMappingInfo<TModel>().Where(info=> info.FieldName != ModelHelper.GetIdFieldName<TModel>()))
+            foreach(var mi in model.GetMappingInfo().Where(info=> info.FieldName != model.GetIdFieldName()))
             {
                 if (counter == 0)
                     sb.Append(" VALUES (");
@@ -122,7 +116,7 @@ namespace Core.Repositories
                 else
                     sb.Append(",");
                 var counter = 0;
-                foreach (var mi in ModelHelper.GetMappingInfo<TModel>().Where(info => info.FieldName != ModelHelper.GetIdFieldName<TModel>()))
+                foreach (var mi in model.GetMappingInfo().Where(info => info.FieldName != model.GetIdFieldName()))
                 {
                     if (counter == 0)
                         sb.Append("(");
@@ -161,10 +155,10 @@ namespace Core.Repositories
                 throw new InvalidOperationException("Нельзя изменить объект, так как он не существует");
 
             var parameters = new List<SqlParameter>();
-            var sb = new StringBuilder($"UPDATE {ModelHelper.GetModelTableName<TModel>()} SET ");
-            var idFieldName = ModelHelper.GetIdFieldName<TModel>();
+            var sb = new StringBuilder($"UPDATE {model.GetModelTableName()} SET ");
+            var idFieldName = model.GetIdFieldName();
             var counter = 0;
-            foreach (var mi in ModelHelper.GetMappingInfo<TModel>().Where(info => info.FieldName != idFieldName))
+            foreach (var mi in model.GetMappingInfo().Where(info => info.FieldName != idFieldName))
             {
                 if (counter > 0)
                     sb.Append(",");
@@ -278,7 +272,6 @@ namespace Core.Repositories
         protected virtual IEnumerable<string> GetFields()
         {
             return ModelHelper.GetMappingInfo<TModel>().Select(mi => mi.FieldName);
-            return new string[] { ModelHelper.GetIdFieldName<TModel>() };
         }
 
         protected string GetFieldsString()

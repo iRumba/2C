@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace UnitTests
 {
-    static class Configuration
+    static class TestsConfiguration
     {
-        public const string CONNECTION_STRING = @"Server=HI_TECH\MSSQL;Database=2C_DB;Trusted_Connection=True;";
+        public const string CONNECTION_STRING = @"Server=IRUMBA-PC\MSSQL;Database=2C_DB;Trusted_Connection=True;";
     }
 }

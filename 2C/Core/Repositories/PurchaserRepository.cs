@@ -1,4 +1,5 @@
 ﻿using Core.Models;
+using Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Core.Repositories
 {
     internal class PurchaserRepository : BaseRepository<Purchaser>
     {
-        internal PurchaserRepository(string connectionString) : base(connectionString)
+        internal PurchaserRepository(DbManager dbManager) : base(dbManager)
         {
         }
     }

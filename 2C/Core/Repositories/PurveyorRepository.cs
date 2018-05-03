@@ -10,7 +10,7 @@ namespace Core.Repositories
 {
     public class PurveyorRepository : BaseRepository<Purveyor>
     {
-        internal PurveyorRepository(DbManager dbManager) : base(dbManager)
+        public PurveyorRepository(DbManager dbManager) : base(dbManager)
         {
 
         }

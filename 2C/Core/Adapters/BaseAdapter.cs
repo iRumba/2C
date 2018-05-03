@@ -66,7 +66,18 @@ namespace Core.Adapters
             foreach(var mi in mappingInfoList)
             {
                 if (row.Table.Columns.Contains(mi.FieldName))
-                    mi.Property.SetValue(res, row.IsNull(mi.FieldName) ? null : row[mi.FieldName]);
+                {
+                    switch (mi.MappingType)
+                    {
+                        case Utils.MappingType.Direct:
+                            mi.Property.SetValue(res, row.IsNull(mi.FieldName) ? null : row[mi.FieldName]);
+                            break;
+                        case Utils.MappingType.ForeignKey:
+                            res.ForeignKeys[mi.FieldName] = row.IsNull(mi.FieldName) ? -1 : row.Field<int>(mi.FieldName);
+                            break;
+                    }
+                }
+                    
             }
             return res;
         }

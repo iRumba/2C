@@ -11,7 +11,7 @@ namespace Core.Repositories
 {
     internal class OrderRepository : BaseRepository<Order>
     {
-        internal OrderRepository(DbManager dbManager) : base(dbManager)
+        public OrderRepository(DbManager dbManager) : base(dbManager)
         {
         }
 

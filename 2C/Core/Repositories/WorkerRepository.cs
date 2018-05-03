@@ -10,7 +10,7 @@ namespace Core.Repositories
 {
     internal class WorkerRepository : BaseRepository<Worker>
     {
-        internal WorkerRepository(DbManager dbManager) : base(dbManager)
+        public WorkerRepository(DbManager dbManager) : base(dbManager)
         {
         }
     }

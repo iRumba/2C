@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Core
 {
-    public class Instance
+    public class ShopManager
     {
         SimpleIoc _iocContainer;
 
-        public Instance(Configuration configuration)
+        public ShopManager(Configuration configuration)
         {
             _iocContainer = SimpleIoc.Instance;
             _iocContainer.AddSingleton(configuration);
@@ -34,6 +34,15 @@ namespace Core
             _iocContainer.AddTransient<ArrivalDetailsRepository>();
             _iocContainer.AddTransient<OrderDetailsRepository>();
             _iocContainer.AddSingleton<DbManager>();
+            _iocContainer.AddSingleton<RepositoryManager>();
+        }
+
+        public RepositoryManager RepositoryManager
+        {
+            get
+            {
+                return _iocContainer.Get<RepositoryManager>();
+            }
         }
 
         public async Task ClearDatabase()

@@ -10,7 +10,7 @@ namespace Core.Repositories
 {
     internal class PurchaserRepository : BaseRepository<Purchaser>
     {
-        internal PurchaserRepository(DbManager dbManager) : base(dbManager)
+        public PurchaserRepository(DbManager dbManager) : base(dbManager)
         {
         }
     }

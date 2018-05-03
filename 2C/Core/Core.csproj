@@ -45,7 +45,7 @@
     <Compile Include="Adapters\BaseAdapter.cs" />
     <Compile Include="Attributes\IdFieldNameAttribute.cs" />
     <Compile Include="Configuration.cs" />
-    <Compile Include="Instance.cs" />
+    <Compile Include="ShopManager.cs" />
     <Compile Include="Models\Arrival.cs" />
     <Compile Include="Models\ArrivalDetails.cs" />
     <Compile Include="Models\BaseModel.cs" />

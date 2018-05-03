@@ -13,7 +13,7 @@ namespace Core.Repositories
 {
     public class GoodsRepository : BaseRepository<Goods>
     {
-        internal GoodsRepository(DbManager dbManager) : base(dbManager)
+        public GoodsRepository(DbManager dbManager) : base(dbManager)
         {
 
         }

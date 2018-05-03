@@ -15,11 +15,6 @@ namespace Core.Repositories
 
         }
 
-        public GoodsRepository GetGoodsRepository()
-        {
-            return (GoodsRepository)GetRepository<Goods>();
-        }
-
         public BaseRepository<TModel> GetRepository<TModel>() where TModel : BaseModel
         {
             return SimpleIoc.Instance.Get<BaseRepository<TModel>>();

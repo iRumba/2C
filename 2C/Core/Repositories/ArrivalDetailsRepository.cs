@@ -11,7 +11,7 @@ namespace Core.Repositories
 {
     public class ArrivalDetailsRepository : BaseRepository<ArrivalDetails>
     {
-        internal ArrivalDetailsRepository(DbManager dbManager) : base(dbManager)
+        public ArrivalDetailsRepository(DbManager dbManager) : base(dbManager)
         {
         }
 

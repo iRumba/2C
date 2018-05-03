@@ -174,6 +174,11 @@ namespace Core.Repositories
                         var fModel = mi.Property.GetValue(model) as TModel;
                         if (fModel != null)
                             value = fModel.Id;
+                        else if (model.ForeignKeys.ContainsKey(mi.FieldName))
+                            value = model.ForeignKeys[mi.FieldName];
+
+                        if ((int)value == -1)
+                            value = null;
                         break;
                 }
                 var param = new SqlParameter(pName, value ?? DBNull.Value);

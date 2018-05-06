@@ -15,7 +15,7 @@ namespace GUI.ViewModels
     public class GoodsViewModel : BindableBase
     {
         private string _title = "Товары";
-        private GoodsVm _selected;
+        private GoodsEditViewModel _selected;
 
         private ShopManager _shopManager;
 
@@ -26,7 +26,7 @@ namespace GUI.ViewModels
 
         public GoodsViewModel(ShopManager shopManager)
         {
-            Goods = new ObservableCollection<GoodsVm>();
+            Goods = new ObservableCollection<GoodsEditViewModel>();
             _shopManager = shopManager;
         }
 
@@ -36,9 +36,9 @@ namespace GUI.ViewModels
             set { SetProperty(ref _title, value); }
         }
 
-        public ObservableCollection<GoodsVm> Goods { get; }
+        public ObservableCollection<GoodsEditViewModel> Goods { get; }
 
-        public GoodsVm Selected
+        public GoodsEditViewModel Selected
         {
             get{ return _selected; }
             set { SetProperty(ref _selected, value); }
@@ -49,7 +49,7 @@ namespace GUI.ViewModels
         public async Task LoadData()
         {
             var goods = await _shopManager.RepositoryManager.GetRepository<Goods>().GetAll();
-            Goods.AddRange(goods.Select(g=>new GoodsVm(g)));
+            Goods.AddRange(goods.Select(g=>new GoodsEditViewModel(g)));
             if (StartId > 0)
                 Selected = Goods.FirstOrDefault();
         }

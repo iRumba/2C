@@ -84,6 +84,14 @@ namespace Core.Repositories
             }
         }
 
+        public async Task<List<Goods>> GetByName(string name)
+        {
+            var query = $@"{GetSimpleQuery()} WHERE {ModelHelper.GetColumnName<Goods>(nameof(Goods.Name))} LIKE '{name}%'
+UNION
+{GetSimpleQuery()} WHERE {ModelHelper.GetColumnName<Goods>(nameof(Goods.Name))} LIKE '%{name}%'";
+            return await QueryToModelList(query, Enumerable.Empty<SqlParameter>());
+        }
+
         //protected override IEnumerable<string> GetFields()
         //{
         //    return base.GetFields().Concat(new string[] { "Name", "Markup", "Image" });

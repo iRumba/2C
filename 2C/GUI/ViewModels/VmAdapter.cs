@@ -7,13 +7,29 @@ using System.Threading.Tasks;
 
 namespace GUI.ViewModels
 {
-    public class VmAdapter<TModel> : BindableBase
+    public abstract class VmAdapter<TModel> : BindableBase where TModel : class, new()
     {
         public VmAdapter(TModel model)
         {
             Model = model;
+            ResetChanges();
         }
 
-        public TModel Model { get; }
+        public VmAdapter()
+        {
+            Model = new TModel();
+        }
+
+        public TModel Model { get; private set; }
+
+        public void LoadModel(TModel model)
+        {
+            Model = model;
+            ResetChanges();
+        }
+
+        public abstract void ChangeModel();
+
+        public abstract void ResetChanges();
     }
 }

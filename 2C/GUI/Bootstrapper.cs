@@ -31,7 +31,6 @@ namespace GUI
             base.ConfigureContainer();
             var conf = ConfigManager.GetDefault(); 
             Container.Register<ShopManager>();
-            Container.RegisterInstance(conf);
         }
     }
 }

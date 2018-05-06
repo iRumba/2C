@@ -8,15 +8,55 @@
         xmlns:local="clr-namespace:GUI.Views"
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:GUI.ViewModels"
-        Title="{Binding Title}" Height="450" Width="800"
+        Title="{Binding Title}" Height="450" Width="400"
         d:DataContext="{d:DesignInstance vm:GoodsViewModel}">
     <Grid>
-        <ListBox ItemsSource="{Binding Goods}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name}"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="5">
+            <ListBox ItemsSource="{Binding Goods}" HorizontalContentAlignment="Stretch">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image Stretch="UniformToFill" Source="{Binding Image}" Width="70" Height="70"/>
+                            <StackPanel HorizontalAlignment="Stretch" Margin="5" Grid.Column="1">
+                                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Margin="5 0">
+                                <Run Text="Цена:"/>
+                                <Run Text="{Binding Price}"/>
+                                    </TextBlock>
+                                    <TextBlock Margin="5 0" Grid.Column="1">
+                                <Run Text="Остаток:"/>
+                                <Run Text="{Binding Amount}"/>
+                                    </TextBlock>
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+
+
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+        
+        <StackPanel Grid.Row="1" Margin="5" Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Padding" Value="5"/>
+                </Style>
+            </StackPanel.Resources>
+            <Button Content="Закрыть"/>
+        </StackPanel>
     </Grid>
 </Window>

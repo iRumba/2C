@@ -60,6 +60,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\GoodsEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -71,11 +75,14 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="ConfigManager.cs" />
     <Compile Include="ViewModels\GoodsViewModel.cs" />
-    <Compile Include="ViewModels\GoodsVm.cs" />
+    <Compile Include="ViewModels\GoodsEditViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\VmAdapter.cs" />
     <Compile Include="Views\Goods.xaml.cs">
       <DependentUpon>Goods.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GoodsEdit.xaml.cs">
+      <DependentUpon>GoodsEdit.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

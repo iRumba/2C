@@ -1,4 +1,6 @@
-﻿using Core.Models;
+﻿using Core;
+using Core.Models;
+using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +16,30 @@ namespace GUI.ViewModels
         private string _name;
         private string _image;
 
-        public GoodsEditViewModel() { }
+        public GoodsEditViewModel() 
+        {
+            ChangeImageCommand = new DelegateCommand(ChangeImage);
+            DeleteImageCommand = new DelegateCommand(DeleteImage, CanDeleteImage);
+            Title = "Редактирование товара";
+        }
 
-        public GoodsEditViewModel(Goods model) : base(model) { }
+        public DelegateCommand ChangeImageCommand { get; }
+        public DelegateCommand DeleteImageCommand { get; }
+
+        bool CanDeleteImage()
+        {
+            return !string.IsNullOrEmpty(Image);
+        }
+
+        void ChangeImage()
+        {
+            
+        }
+
+        void DeleteImage()
+        {
+            Image = null;
+        }
 
         public int Amount
         {

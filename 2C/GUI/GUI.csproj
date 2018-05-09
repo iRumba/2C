@@ -56,11 +56,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Views\Goods.xaml">
+    <Compile Include="BaseViews\BaseView.cs" />
+    <Compile Include="BaseViews\DictionaryView.cs" />
+    <Compile Include="BaseViews\EditView.cs" />
+    <Compile Include="ViewModels\VmBase.cs" />
+    <Compile Include="ViewModels\VmDictionary.cs" />
+    <Compile Include="ViewModels\VmShopWorker.cs" />
+    <Compile Include="ViewModels\WorkersEditViewModel.cs" />
+    <Compile Include="Views\WorkersEditView.xaml.cs">
+      <DependentUpon>WorkersEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkersView.xaml.cs">
+      <DependentUpon>WorkersView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\GoodsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\GoodsEdit.xaml">
+    <Page Include="Views\GoodsEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -78,16 +91,26 @@
     <Compile Include="ViewModels\GoodsEditViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\VmAdapter.cs" />
-    <Compile Include="Views\Goods.xaml.cs">
-      <DependentUpon>Goods.xaml</DependentUpon>
+    <Compile Include="ViewModels\VmDialog.cs" />
+    <Compile Include="ViewModels\WorkersViewModel.cs" />
+    <Compile Include="Views\GoodsView.xaml.cs">
+      <DependentUpon>GoodsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\GoodsEdit.xaml.cs">
-      <DependentUpon>GoodsEdit.xaml</DependentUpon>
+    <Compile Include="Views\GoodsEditView.xaml.cs">
+      <DependentUpon>GoodsEditView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\WorkersEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WorkersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

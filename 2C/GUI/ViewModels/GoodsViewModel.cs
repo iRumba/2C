@@ -1,7 +1,9 @@
 ﻿using Core;
 using Core.Models;
 using Core.Repositories;
+using GUI.Views;
 using Microsoft.Practices.ServiceLocation;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -12,74 +14,33 @@ using System.Threading.Tasks;
 
 namespace GUI.ViewModels
 {
-    public class GoodsViewModel : BindableBase
+    public class GoodsViewModel : VmDictionary<Goods>
     {
-        private string _title = "Товары";
-        private GoodsEditViewModel _selected;
-
-        private ShopManager _shopManager;
-
-        //public GoodsViewModel() : this(null)
-        //{
-            
-        //}
-
-        public GoodsViewModel(ShopManager shopManager)
+        public GoodsViewModel(ShopManager shopManager) : base(shopManager)
         {
-            Goods = new ObservableCollection<GoodsEditViewModel>();
-            _shopManager = shopManager;
+            Title = "Справочник товаров";
         }
 
-        public string Title
+        public override async Task LoadData()
         {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
-        }
-
-        public ObservableCollection<GoodsEditViewModel> Goods { get; }
-
-        public GoodsEditViewModel Selected
-        {
-            get{ return _selected; }
-            set { SetProperty(ref _selected, value); }
-        }
-
-        public int StartId { get; set; }
-
-        public async Task LoadData()
-        {
-            var goods = await _shopManager.RepositoryManager.GetRepository<Goods>().GetAll();
-            Goods.AddRange(goods.Select(g=>new GoodsEditViewModel(g)));
-            if (StartId > 0)
-                Selected = Goods.FirstOrDefault();
+            await base.LoadData();
+            await LoadDetails();
         }
 
         private async Task LoadDetails()
         {
-            var rep = _shopManager.RepositoryManager.GetRepository<Goods>() as GoodsRepository;
+            var rep = ShopManager.RepositoryManager.GetRepository<Goods>() as GoodsRepository;
             if (rep == null)
                 return;
 
-            var details = await rep.GetDetails(Goods.Select(g => g.Model.Id));
+            var details = await rep.GetDetails(Entities.Select(g => g.Model.Id));
 
             foreach(var det in details)
             {
-                var g = Goods.FirstOrDefault(gvm => gvm.Model.Id == det.Item1);
+                var g = Entities.FirstOrDefault(gvm => gvm.Model.Id == det.Item1) as GoodsEditViewModel;
                 g.Price = det.Item2 ?? 0;
                 g.Amount = det.Item3;
             }
-        }
-
-        private class GoodsDetails
-        {
-            public GoodsDetails(int amount, decimal price)
-            {
-
-            }
-
-            public int Amount { get; }
-
-            public decimal Price { get; }
         }
     }
 }

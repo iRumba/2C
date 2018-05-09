@@ -1,0 +1,55 @@
+﻿<bv:EditView x:Class="GUI.Views.GoodsEditView"
+             x:TypeArguments="models:Goods"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+          xmlns:models="clr-namespace:Core.Models;assembly=Core"
+          xmlns:bv="clr-namespace:GUI.BaseViews"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:local="clr-namespace:GUI.Views"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:GUI.ViewModels"
+        Title="{Binding Title}" Height="450" Width="400"
+        d:DataContext="{d:DesignInstance vm:GoodsEditViewModel}">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="Button">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Padding" Value="5"/>
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="210"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Border Width="200" Height="200" Background="LightGray" Margin="5">
+                    <Image Stretch="Uniform" Source="{Binding Image}" Name="img"/>
+                </Border>
+                
+                <StackPanel Grid.Column="1">
+                    <Button Content="Задать изображение"/>
+                    <Button Content="Удалить изображение"/>
+                </StackPanel>
+                <Label Content="Наименование:" Grid.Row="1" HorizontalAlignment="Right"/>
+                <TextBox Text="{Binding Name}" Grid.Column="1" Grid.Row="1"/>
+            </Grid>
+        </ScrollViewer>
+        <StackPanel Grid.Row="1">
+            <Button Content="Сохранить" Command="{Binding SaveCommand}"/>
+        </StackPanel>
+    </Grid>
+</bv:EditView>

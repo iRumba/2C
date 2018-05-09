@@ -14,7 +14,7 @@ namespace Core.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        internal BaseModel()
+        public BaseModel()
         {
             ForeignKeys = new Dictionary<string, int>();
         }

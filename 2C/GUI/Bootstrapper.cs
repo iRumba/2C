@@ -5,6 +5,9 @@ using DryIoc;
 using Prism.DryIoc;
 using Microsoft.Practices.ServiceLocation;
 using Core;
+using GUI.ViewModels;
+using Core.Models;
+using GUI.BaseViews;
 
 namespace GUI
 {
@@ -29,8 +32,15 @@ namespace GUI
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
-            var conf = ConfigManager.GetDefault(); 
+            var conf = ConfigManager.GetDefault();
+            Container.RegisterInstance(conf);
             Container.Register<ShopManager>();
+            Container.Register<VmAdapter<Goods>, GoodsEditViewModel>();
+            Container.Register<EditView<Goods>, GoodsEditView>();
+            Container.Register<DictionaryView<Goods>, GoodsView>();
+            Container.Register<VmAdapter<Worker>, WorkersEditViewModel>();
+            Container.Register<EditView<Worker>, WorkersEditView>();
+            Container.Register<DictionaryView<Worker>, WorkersView>();
         }
     }
 }

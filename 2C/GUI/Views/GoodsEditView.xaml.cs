@@ -1,4 +1,6 @@
-﻿using GUI.ViewModels;
+﻿using Core.Models;
+using GUI.BaseViews;
+using GUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,21 +18,13 @@ using System.Windows.Shapes;
 namespace GUI.Views
 {
     /// <summary>
-    /// Логика взаимодействия для Goods.xaml
+    /// Логика взаимодействия для GoodsEdit.xaml
     /// </summary>
-    public partial class Goods : Window
+    public partial class GoodsEditView : EditView<Goods>
     {
-        public Goods()
+        public GoodsEditView()
         {
             InitializeComponent();
-        }
-
-        public GoodsViewModel ViewModel
-        {
-            get
-            {
-                return DataContext as GoodsViewModel;
-            }
         }
     }
 }

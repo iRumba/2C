@@ -59,6 +59,7 @@ namespace Core.Repositories
                 var param = new SqlParameter($"@id_{counter}", id);
                 parameters.Add(param);
                 sb.Append($"Id={param.ParameterName}");
+                counter++;
             }
             using (var con = GetConnection())
             {

@@ -1,4 +1,6 @@
-﻿using GUI.Views;
+﻿using Core.Models;
+using GUI.BaseViews;
+using GUI.Views;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -11,10 +13,12 @@ namespace GUI.ViewModels
 
         public MainWindowViewModel()
         {
-            ShowGoodsCommand = new DelegateCommand(ShowGoods);
+            ShowGoodsCommand = new DelegateCommand(ShowDictionary<Goods>);
+            ShowWorkersCommand = new DelegateCommand(ShowDictionary<Worker>);
         }
 
         public DelegateCommand ShowGoodsCommand { get; set; }
+        public DelegateCommand ShowWorkersCommand { get; set; }
 
         public string Title
         {
@@ -22,11 +26,11 @@ namespace GUI.ViewModels
             set { SetProperty(ref _title, value); }
         }
 
-        async void ShowGoods()
+        async void ShowDictionary<TModel>() where TModel : BaseModel
         {
-            var goodsView = ServiceLocator.Current.GetInstance<Goods>();
-            var task = goodsView.ViewModel.LoadData();
-            goodsView.Show();
+            var view = ServiceLocator.Current.GetInstance<DictionaryView<TModel>>();
+            var task = view.ViewModel.LoadData();
+            view.ShowDialog();
             await task;
         }
     }

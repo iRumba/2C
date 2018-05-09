@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Core.Models;
+using GUI.BaseViews;
+using GUI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,11 +18,11 @@ using System.Windows.Shapes;
 namespace GUI.Views
 {
     /// <summary>
-    /// Логика взаимодействия для GoodsEdit.xaml
+    /// Логика взаимодействия для WorkersView.xaml
     /// </summary>
-    public partial class GoodsEdit : Window
+    public partial class WorkersView : DictionaryView<Worker>
     {
-        public GoodsEdit()
+        public WorkersView()
         {
             InitializeComponent();
         }

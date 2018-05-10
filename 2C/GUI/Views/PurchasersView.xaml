@@ -1,0 +1,58 @@
+﻿<bv:DictionaryView x:Class="GUI.Views.PurchasersView"
+                   x:TypeArguments="models:Purchaser"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:prism="http://prismlibrary.com/"
+                   prism:ViewModelLocator.AutoWireViewModel="True"
+                   xmlns:vm="clr-namespace:GUI.ViewModels"
+                   xmlns:bv="clr-namespace:GUI.BaseViews"
+                   xmlns:local="clr-namespace:GUI.Views"
+                   xmlns:models="clr-namespace:Core.Models;assembly=Core"
+                   mc:Ignorable="d"
+                   Title="{Binding Title}" Height="450" Width="400"
+                   d:DataContext="{d:DesignInstance vm:PurchaserEditViewModel}">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="Button">
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Button Content="Добавить" Command="{Binding AddCommand}"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="5" Grid.Row="1">
+            <ListBox ItemsSource="{Binding Entities}" HorizontalContentAlignment="Stretch"
+                     SelectedItem="{Binding Selected}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock TextWrapping="Wrap" Margin="5">
+                            <Run Text="{Binding Name}"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="2" Margin="5" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Выбрать" Visibility="Collapsed" Command="{Binding SelectCommand}">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsDialog}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Content="Редактировать" Command="{Binding EditCommand}"/>
+        </StackPanel>
+    </Grid>
+
+</bv:DictionaryView>

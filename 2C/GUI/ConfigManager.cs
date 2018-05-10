@@ -16,9 +16,5 @@ namespace GUI
                 ConnectionString = @"Server=IRUMBA-PC\MSSQL;Database=2C_DB;Trusted_Connection=True;"
             };
         }
-        //void ShowGoodsDictionary(int? selectedId = null)
-        //{
-
-        //}
     }
 }

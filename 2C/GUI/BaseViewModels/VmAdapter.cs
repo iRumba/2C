@@ -1,14 +1,8 @@
-﻿using Core;
-using Core.Models;
+﻿using Core.Models;
 using Prism.Commands;
-using Prism.Mvvm;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GUI.ViewModels
+namespace GUI.BaseViewModels
 {
     public abstract class VmAdapter<TModel> : VmDialog where TModel : BaseModel
     {

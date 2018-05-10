@@ -3,14 +3,10 @@ using Core.Models;
 using GUI.BaseViews;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Commands;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace GUI.ViewModels
+namespace GUI.BaseViewModels
 {
     public class VmDictionary<TModel> : VmShopWorker where TModel : BaseModel
     {

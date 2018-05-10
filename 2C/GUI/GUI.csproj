@@ -59,10 +59,26 @@
     <Compile Include="BaseViews\BaseView.cs" />
     <Compile Include="BaseViews\DictionaryView.cs" />
     <Compile Include="BaseViews\EditView.cs" />
-    <Compile Include="ViewModels\VmBase.cs" />
-    <Compile Include="ViewModels\VmDictionary.cs" />
-    <Compile Include="ViewModels\VmShopWorker.cs" />
+    <Compile Include="ViewModels\PurchaserEditViewModel.cs" />
+    <Compile Include="ViewModels\PurchasersViewModel.cs" />
+    <Compile Include="BaseViewModels\VmBase.cs" />
+    <Compile Include="BaseViewModels\VmDictionary.cs" />
+    <Compile Include="BaseViewModels\VmShopWorker.cs" />
+    <Compile Include="ViewModels\PurveyorEditViewModel.cs" />
+    <Compile Include="ViewModels\PurveyorsViewModel.cs" />
     <Compile Include="ViewModels\WorkersEditViewModel.cs" />
+    <Compile Include="Views\PurchaserEditView.xaml.cs">
+      <DependentUpon>PurchaserEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PurchasersView.xaml.cs">
+      <DependentUpon>PurchasersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PurveyorEditView.xaml.cs">
+      <DependentUpon>PurveyorEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PurveyorsView.xaml.cs">
+      <DependentUpon>PurveyorsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WorkersEditView.xaml.cs">
       <DependentUpon>WorkersEditView.xaml</DependentUpon>
     </Compile>
@@ -90,8 +106,8 @@
     <Compile Include="ViewModels\GoodsViewModel.cs" />
     <Compile Include="ViewModels\GoodsEditViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\VmAdapter.cs" />
-    <Compile Include="ViewModels\VmDialog.cs" />
+    <Compile Include="BaseViewModels\VmAdapter.cs" />
+    <Compile Include="BaseViewModels\VmDialog.cs" />
     <Compile Include="ViewModels\WorkersViewModel.cs" />
     <Compile Include="Views\GoodsView.xaml.cs">
       <DependentUpon>GoodsView.xaml</DependentUpon>
@@ -103,6 +119,22 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\PurchaserEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PurchasersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PurveyorEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PurveyorsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\WorkersEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

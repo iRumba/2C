@@ -1,6 +1,5 @@
 ﻿using Core.Models;
 using GUI.BaseViews;
-using GUI.Views;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -15,10 +14,14 @@ namespace GUI.ViewModels
         {
             ShowGoodsCommand = new DelegateCommand(ShowDictionary<Goods>);
             ShowWorkersCommand = new DelegateCommand(ShowDictionary<Worker>);
+            ShowPurveyorsCommand = new DelegateCommand(ShowDictionary<Purveyor>);
+            ShowPurchasersCommand = new DelegateCommand(ShowDictionary<Purchaser>);
         }
 
         public DelegateCommand ShowGoodsCommand { get; set; }
         public DelegateCommand ShowWorkersCommand { get; set; }
+        public DelegateCommand ShowPurveyorsCommand { get; set; }
+        public DelegateCommand ShowPurchasersCommand { get; set; }
 
         public string Title
         {

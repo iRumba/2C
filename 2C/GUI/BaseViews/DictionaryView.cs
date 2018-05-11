@@ -5,6 +5,10 @@ namespace GUI.BaseViews
 {
     public class DictionaryView<TModel> : BaseView<VmDictionary<TModel>> where TModel : BaseModel
     {
-
+        protected override void RaiseClose()
+        {
+            DialogResult = ViewModel.DialogResult;
+            base.RaiseClose();
+        }
     }
 }

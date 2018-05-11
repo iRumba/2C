@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace GUI.BaseViews
 {
-    public class BaseView<TViewModel> : Window where TViewModel : VmDialog
+    public class BaseView<TViewModel> : Window where TViewModel : VmBase
     {
         public BaseView()
         {
@@ -26,7 +26,11 @@ namespace GUI.BaseViews
 
         private void ViewModel_CloseRequest(object sender, EventArgs e)
         {
-            DialogResult = ViewModel.DialogResult;
+            RaiseClose();
+        }
+
+        protected virtual void RaiseClose()
+        {
             Close();
         }
     }

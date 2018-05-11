@@ -1,6 +1,7 @@
 ﻿using Core;
 using Core.Models;
 using GUI.BaseViews;
+using GUI.Interfaces;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Commands;
 using System.Collections.ObjectModel;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GUI.BaseViewModels
 {
-    public class VmDictionary<TModel> : VmShopWorker where TModel : BaseModel
+    public class VmDictionary<TModel> : VmDialog, IShopWorker where TModel : BaseModel
     {
         private VmAdapter<TModel> _selected;
 
@@ -16,12 +17,13 @@ namespace GUI.BaseViewModels
         public DelegateCommand EditCommand { get; }
         public DelegateCommand AddCommand { get; }
 
-        public VmDictionary(ShopManager shopManager) : base(shopManager)
+        public VmDictionary(ShopManager shopManager)
         {
             Entities = new ObservableCollection<VmAdapter<TModel>>();
             SelectCommand = new DelegateCommand(SelectExecute, IsSelected).ObservesProperty(() => Selected);
             EditCommand = new DelegateCommand(EditExecute, IsSelected).ObservesProperty(() => Selected);
             AddCommand = new DelegateCommand(AddExecute);
+            ShopManager = shopManager;
         }
 
         public ObservableCollection<VmAdapter<TModel>> Entities { get; }
@@ -33,6 +35,8 @@ namespace GUI.BaseViewModels
             get { return _selected; }
             set { SetProperty(ref _selected, value); }
         }
+
+        public ShopManager ShopManager { get; }
 
         void SelectExecute()
         {

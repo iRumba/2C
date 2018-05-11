@@ -59,11 +59,11 @@
     <Compile Include="BaseViews\BaseView.cs" />
     <Compile Include="BaseViews\DictionaryView.cs" />
     <Compile Include="BaseViews\EditView.cs" />
+    <Compile Include="Interfaces\IShopWorker.cs" />
     <Compile Include="ViewModels\PurchaserEditViewModel.cs" />
     <Compile Include="ViewModels\PurchasersViewModel.cs" />
     <Compile Include="BaseViewModels\VmBase.cs" />
     <Compile Include="BaseViewModels\VmDictionary.cs" />
-    <Compile Include="BaseViewModels\VmShopWorker.cs" />
     <Compile Include="ViewModels\PurveyorEditViewModel.cs" />
     <Compile Include="ViewModels\PurveyorsViewModel.cs" />
     <Compile Include="ViewModels\WorkersEditViewModel.cs" />

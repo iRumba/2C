@@ -17,9 +17,9 @@
                 </Style>
             </UniformGrid.Resources>
             <Button Content="Справочник товаров" Command="{Binding ShowGoodsCommand}"/>
-            
-            
-            <Button Content="Поставки товара" Command="{Binding ShowGoodsCommand}"/>
+
+
+            <Button Content="Поставки товара" Command="{Binding ShowArrivalsCommand}"/>
             <Button Content="Список работников" Command="{Binding ShowWorkersCommand}"/>
             <Button Content="Заказы" Command="{Binding ShowGoodsCommand}"/>
             <Button Content="Список поставщиков" Command="{Binding ShowPurveyorsCommand}"/>

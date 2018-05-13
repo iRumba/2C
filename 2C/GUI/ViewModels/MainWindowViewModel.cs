@@ -16,12 +16,14 @@ namespace GUI.ViewModels
             ShowWorkersCommand = new DelegateCommand(ShowDictionary<Worker>);
             ShowPurveyorsCommand = new DelegateCommand(ShowDictionary<Purveyor>);
             ShowPurchasersCommand = new DelegateCommand(ShowDictionary<Purchaser>);
+            ShowArrivalsCommand = new DelegateCommand(ShowDictionary<Arrival>);
         }
 
-        public DelegateCommand ShowGoodsCommand { get; set; }
-        public DelegateCommand ShowWorkersCommand { get; set; }
-        public DelegateCommand ShowPurveyorsCommand { get; set; }
-        public DelegateCommand ShowPurchasersCommand { get; set; }
+        public DelegateCommand ShowGoodsCommand { get; }
+        public DelegateCommand ShowWorkersCommand { get; }
+        public DelegateCommand ShowPurveyorsCommand { get; }
+        public DelegateCommand ShowPurchasersCommand { get; }
+        public DelegateCommand ShowArrivalsCommand { get; }
 
         public string Title
         {

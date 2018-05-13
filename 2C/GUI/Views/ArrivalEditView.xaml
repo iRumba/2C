@@ -1,0 +1,111 @@
+﻿<bv:EditView x:Class="GUI.Views.ArrivalEditView"
+             x:TypeArguments="models:Arrival"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:bv="clr-namespace:GUI.BaseViews"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:GUI.ViewModels"
+             xmlns:models="clr-namespace:Core.Models;assembly=Core"
+             xmlns:local="clr-namespace:GUI.Views"
+             mc:Ignorable="d" Height="350" Width="400"
+             d:DataContext="{d:DesignInstance vm:ArrivalEditViewModel}"
+             Title="{Binding Title}" SizeToContent="Height">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="Button">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Padding" Value="5"/>
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Content="Дата:" HorizontalAlignment="Right"/>
+                <DatePicker SelectedDate="{Binding Date}" Grid.Column="1">
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox" BasedOn="{StaticResource {x:Type DatePickerTextBox}}">
+                            <Setter Property="IsReadOnly" Value="{Binding IsReadOnly}"/>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+                <Label Content="Поставщик:" Grid.Row="1" HorizontalAlignment="Right"/>
+                <DockPanel Grid.Column="1" Grid.Row="1">
+                    <Button Content="..." DockPanel.Dock="Right" Command="{Binding SelectPurveyorCommand}"
+                            CommandParameter="{Binding Purveyor}">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsReadOnly}" Value="true">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <TextBox Text="{Binding Purveyor.Name}" IsReadOnly="True"/>
+                </DockPanel>
+                
+                <Label Content="Детали:" Grid.Row="2" HorizontalAlignment="Right"/>
+                <StackPanel Grid.Row="2" Grid.Column="1">
+                    <Button Content="Добавить" Command="{Binding AddDetailCommand}"/>
+                    <ListBox MinHeight="100" ItemsSource="{Binding Details}" Name="list">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap">
+                                    <Run Text="{Binding Goods.Name}"/>
+                                    (<Run Text="{Binding Amount}"/>)
+                                    <LineBreak/>
+                                    Цена:
+                                    <Run Text="{Binding Price}"/>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsReadOnly}" Value="true">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <Button Content="Редактировать" Command="{Binding EditDetailCommand}"
+                                CommandParameter="{Binding SelectedItem, ElementName=list}"/>
+                            <Button Content="Удалить" Command="{Binding RemoveDetailCommand}"
+                                CommandParameter="{Binding SelectedItem, ElementName=list}"/>
+                        </StackPanel>
+                        <TextBlock TextWrapping="Wrap" VerticalAlignment="Center">
+                            <Run FontWeight="Bold">Итого:</Run>
+                            <Run Text="{Binding Total, Mode=OneWay}"/>
+                        </TextBlock>
+                    </DockPanel>
+
+                </StackPanel>
+
+            </Grid>
+        </ScrollViewer>
+        <StackPanel Grid.Row="1">
+            <Button Content="Сохранить" Command="{Binding SaveCommand}"/>
+        </StackPanel>
+    </Grid>
+</bv:EditView>

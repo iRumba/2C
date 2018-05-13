@@ -17,7 +17,7 @@ namespace Core.Utils
         static Dictionary<Type, string> _idFieldsCache = new Dictionary<Type, string>();
         static Dictionary<Type, Dictionary<string, string>> _columnNamesCache = new Dictionary<Type, Dictionary<string, string>>();
 
-        internal static string GetIdFieldName(Type modelType)
+        public static string GetIdFieldName(Type modelType)
         {
             if (_idFieldsCache.ContainsKey(modelType))
                 return _idFieldsCache[modelType];
@@ -31,17 +31,17 @@ namespace Core.Utils
             return res;
         }
 
-        internal static string GetIdFieldName(this BaseModel model)
+        public static string GetIdFieldName(this BaseModel model)
         {
             return GetIdFieldName(model.GetType());
         }
 
-        internal static string GetIdFieldName<TModel>() where TModel : BaseModel
+        public static string GetIdFieldName<TModel>() where TModel : BaseModel
         {
             return GetIdFieldName(typeof(TModel));
         }
 
-        internal static string GetModelTableName(Type modelType)
+        public static string GetModelTableName(Type modelType)
         {
             if (_tableNamesCache.ContainsKey(modelType))
                 return _tableNamesCache[modelType];
@@ -55,12 +55,12 @@ namespace Core.Utils
             return res;
         }
 
-        internal static string GetModelTableName<TModel>() where TModel : BaseModel
+        public static string GetModelTableName<TModel>() where TModel : BaseModel
         {
             return GetModelTableName(typeof(TModel));
         }
 
-        internal static string GetModelTableName(this BaseModel model)
+        public static string GetModelTableName(this BaseModel model)
         {
             return GetModelTableName(model.GetType());
         }
@@ -98,12 +98,12 @@ namespace Core.Utils
             return GetMappingInfo(model.GetType());
         }
 
-        internal static string GetColumnName<TModel>(string modelFieldName) where TModel : BaseModel
+        public static string GetColumnName<TModel>(string modelFieldName) where TModel : BaseModel
         {
             return GetColumnName(typeof(TModel), modelFieldName);
         }
 
-        internal static string GetColumnName(Type modelType, string modelFieldName)
+        public static string GetColumnName(Type modelType, string modelFieldName)
         {
             if (_columnNamesCache.ContainsKey(modelType) && _columnNamesCache[modelType].ContainsKey(modelFieldName))
                 return _columnNamesCache[modelType][modelFieldName];
@@ -119,7 +119,7 @@ namespace Core.Utils
 
             if (listType.IsAssignableFrom(prop.PropertyType))
                 return res;
-            if (modelType.IsAssignableFrom(prop.PropertyType))
+            if (otherModelType.IsAssignableFrom(prop.PropertyType))
                 res = GetFKFieldName(prop);
             else
                 res = GetDirectFieldName(prop);
@@ -131,12 +131,12 @@ namespace Core.Utils
             return res;
         }
 
-        internal static string GetColumnName(this BaseModel model, string modelFieldName)
+        public static string GetColumnName(this BaseModel model, string modelFieldName)
         {
             return GetColumnName(model.GetType(), modelFieldName);
         }
 
-        internal static string GetFKFieldName(PropertyInfo prop)
+        public static string GetFKFieldName(PropertyInfo prop)
         {
             var fkAttribute = prop.GetCustomAttribute<ForeignKeyAttribute>();
             if (fkAttribute == null)
@@ -144,7 +144,14 @@ namespace Core.Utils
             return fkAttribute.Name;
         }
 
-        internal static string GetDirectFieldName(PropertyInfo prop)
+        public static string GetFKFieldName<TModel>(string propertyName)
+        {
+            var type = typeof(TModel);
+            var prop = type.GetProperty(propertyName);
+            return GetFKFieldName(prop);
+        }
+
+        public static string GetDirectFieldName(PropertyInfo prop)
         {
             var fnAttribute = prop.GetCustomAttribute<ColumnAttribute>();
             if (fnAttribute == null)

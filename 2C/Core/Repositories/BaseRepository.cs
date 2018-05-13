@@ -85,7 +85,7 @@ namespace Core.Repositories
                         value = mi.Property.GetValue(model);
                         break;
                     case Utils.MappingType.ForeignKey:
-                        var fModel = mi.Property.GetValue(model) as TModel;
+                        var fModel = mi.Property.GetValue(model) as BaseModel;
                         if (fModel != null)
                             value = fModel.Id;
                         break;
@@ -128,7 +128,7 @@ namespace Core.Repositories
                             value = mi.Property.GetValue(model);
                             break;
                         case Utils.MappingType.ForeignKey:
-                            var fModel = mi.Property.GetValue(model) as TModel;
+                            var fModel = mi.Property.GetValue(model) as BaseModel;
                             if (fModel != null)
                                 value = fModel.Id;
                             break;
@@ -171,7 +171,7 @@ namespace Core.Repositories
                         value = mi.Property.GetValue(model);
                         break;
                     case Utils.MappingType.ForeignKey:
-                        var fModel = mi.Property.GetValue(model) as TModel;
+                        var fModel = mi.Property.GetValue(model) as BaseModel;
                         if (fModel != null)
                             value = fModel.Id;
                         else if (model.ForeignKeys.ContainsKey(mi.FieldName))

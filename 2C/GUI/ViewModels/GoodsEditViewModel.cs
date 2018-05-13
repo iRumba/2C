@@ -10,6 +10,7 @@ namespace GUI.ViewModels
         private decimal _price;
         private string _name;
         private string _image;
+        private double _markUp;
 
         public GoodsEditViewModel() 
         {
@@ -60,16 +61,20 @@ namespace GUI.ViewModels
             set { SetProperty(ref _image, value); }
         }
 
+        public double MarkUp { get => _markUp; set => SetProperty(ref _markUp, value); }
+
         public override void ChangeModel()
         {
             Model.Name = Name;
             Model.Image = Image;
+            Model.Markup = MarkUp / 100;
         }
 
         public override void ResetChanges()
         {
             Name = Model.Name;
             Image = Model.Image;
+            MarkUp = Model.Markup * 100;
         }
     }
 }

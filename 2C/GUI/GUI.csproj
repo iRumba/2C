@@ -59,7 +59,11 @@
     <Compile Include="BaseViews\BaseView.cs" />
     <Compile Include="BaseViews\DictionaryView.cs" />
     <Compile Include="BaseViews\EditView.cs" />
+    <Compile Include="Helpers\SelectHelper.cs" />
     <Compile Include="Interfaces\IShopWorker.cs" />
+    <Compile Include="ViewModels\ArrivalDetailEditViewModel.cs" />
+    <Compile Include="ViewModels\ArrivalEditViewModel.cs" />
+    <Compile Include="ViewModels\ArrivalsViewModel.cs" />
     <Compile Include="ViewModels\PurchaserEditViewModel.cs" />
     <Compile Include="ViewModels\PurchasersViewModel.cs" />
     <Compile Include="BaseViewModels\VmBase.cs" />
@@ -67,6 +71,15 @@
     <Compile Include="ViewModels\PurveyorEditViewModel.cs" />
     <Compile Include="ViewModels\PurveyorsViewModel.cs" />
     <Compile Include="ViewModels\WorkersEditViewModel.cs" />
+    <Compile Include="Views\ArrivalDetailEditView.xaml.cs">
+      <DependentUpon>ArrivalDetailEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ArrivalEditView.xaml.cs">
+      <DependentUpon>ArrivalEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ArrivalsView.xaml.cs">
+      <DependentUpon>ArrivalsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PurchaserEditView.xaml.cs">
       <DependentUpon>PurchaserEditView.xaml</DependentUpon>
     </Compile>
@@ -85,6 +98,18 @@
     <Compile Include="Views\WorkersView.xaml.cs">
       <DependentUpon>WorkersView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\ArrivalDetailEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ArrivalEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ArrivalsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\GoodsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

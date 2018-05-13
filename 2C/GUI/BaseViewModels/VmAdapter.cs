@@ -6,9 +6,12 @@ namespace GUI.BaseViewModels
 {
     public abstract class VmAdapter<TModel> : VmDialog where TModel : BaseModel
     {
+        private bool isReadOnly;
+
         internal VmAdapter(TModel model)
         {
             Model = model;
+            Init();
             ResetChanges();
             SaveCommand = new DelegateCommand(SaveExecute, CanSave);
         }
@@ -18,11 +21,19 @@ namespace GUI.BaseViewModels
         public TModel Model { get; private set; }
 
         public DelegateCommand SaveCommand { get; }
+        public bool IsReadOnly { get => isReadOnly; set => SetProperty(ref isReadOnly, value); }
 
         public void LoadModel(TModel model)
         {
-            Model = model;
+            if (model == null)
+                return;
+            SetModel(model);
             ResetChanges();
+        }
+
+        public void SetModel(TModel model)
+        {
+            Model = model;
         }
 
         protected virtual bool CanSave()
@@ -35,6 +46,11 @@ namespace GUI.BaseViewModels
             ChangeModel();
             DialogResult = true;
             Close();
+        }
+
+        protected virtual void Init()
+        {
+
         }
 
         public abstract void ChangeModel();

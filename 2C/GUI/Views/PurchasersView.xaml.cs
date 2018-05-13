@@ -1,5 +1,6 @@
 ﻿using Core.Models;
 using GUI.BaseViews;
+using GUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

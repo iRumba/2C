@@ -55,6 +55,7 @@
     <Compile Include="ArrivalRepositoryTests.cs" />
     <Compile Include="RepositoriesTests.cs" />
     <Compile Include="DbManagerTests.cs" />
+    <Compile Include="ModelHelperTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

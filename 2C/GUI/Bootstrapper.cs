@@ -52,6 +52,11 @@ namespace GUI
             Container.Register<VmAdapter<Purchaser>, PurchaserEditViewModel>();
             Container.Register<EditView<Purchaser>, PurchaserEditView>();
             Container.Register<DictionaryView<Purchaser>, PurchasersView>();
+
+            Container.Register<VmAdapter<Arrival>, ArrivalEditViewModel>();
+            Container.Register<EditView<Arrival>, ArrivalEditView>();
+            Container.Register<DictionaryView<Arrival>, ArrivalsView>();
+            Container.Register<EditView<ArrivalDetails>, ArrivalDetailEditView>();
         }
     }
 }

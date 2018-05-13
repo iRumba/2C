@@ -18,11 +18,11 @@ using System.Windows.Shapes;
 namespace GUI.Views
 {
     /// <summary>
-    /// Логика взаимодействия для PurchaserEditView.xaml
+    /// Логика взаимодействия для ArrivalEditView.xaml
     /// </summary>
-    public partial class PurchaserEditView : EditView<Purchaser>
+    public partial class ArrivalEditView : EditView<Arrival>
     {
-        public PurchaserEditView()
+        public ArrivalEditView()
         {
             InitializeComponent();
         }

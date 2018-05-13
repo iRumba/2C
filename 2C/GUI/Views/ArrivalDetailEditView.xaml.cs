@@ -1,6 +1,5 @@
 ﻿using Core.Models;
 using GUI.BaseViews;
-using GUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +17,11 @@ using System.Windows.Shapes;
 namespace GUI.Views
 {
     /// <summary>
-    /// Логика взаимодействия для PurchaserEditView.xaml
+    /// Логика взаимодействия для ArrivalDetailEditView.xaml
     /// </summary>
-    public partial class PurchaserEditView : EditView<Purchaser>
+    public partial class ArrivalDetailEditView : EditView<ArrivalDetails>
     {
-        public PurchaserEditView()
+        public ArrivalDetailEditView()
         {
             InitializeComponent();
         }

@@ -67,14 +67,17 @@ namespace GUI.BaseViewModels
             var editView = ServiceLocator.Current.GetInstance<EditView<TModel>>();
             var vm = editView.ViewModel;
             vm.Title = $"{vm.Title} [новый]";
+            BeforeAddExecute(vm);
             editView.ShowDialog();
-            if (editView.DialogResult == true)
+            if (vm.DialogResult == true)
             {
                 var rep = ShopManager.RepositoryManager.GetRepository<TModel>();
                 vm.ChangeModel();
                 var newModel = await rep.Add(vm.Model);
-                vm.LoadModel(newModel);
-                Entities.Add(vm);
+                vm.Model.Id = newModel.Id;
+                //vm.LoadModel(newModel);
+                AfterAddExecute(vm);
+                Entities.Insert(0, vm);
             }
         }
 
@@ -84,16 +87,38 @@ namespace GUI.BaseViewModels
             var vm = goodsEdit.ViewModel;
             vm.LoadModel(Selected.Model);
             vm.Title = $"{vm.Title} [#{vm.Model.Id}]";
+            BeforeEditExecute(vm);
             goodsEdit.ShowDialog();
-            if (goodsEdit.DialogResult == true)
+            if (vm.DialogResult == true)
             {
                 var rep = ShopManager.RepositoryManager.GetRepository<TModel>();
                 vm.ChangeModel();
                 if (await rep.Update(vm.Model))
                 {
                     Selected.LoadModel(vm.Model);
+                    AfterEditExecute(vm);
                 }
             }
+        }
+
+        protected virtual void BeforeAddExecute(VmAdapter<TModel> viewModel)
+        {
+
+        }
+
+        protected virtual void BeforeEditExecute(VmAdapter<TModel> viewModel)
+        {
+
+        }
+
+        protected virtual void AfterAddExecute(VmAdapter<TModel> viewModel)
+        {
+
+        }
+
+        protected virtual void AfterEditExecute(VmAdapter<TModel> viewModel)
+        {
+
         }
     }
 }

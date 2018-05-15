@@ -41,28 +41,29 @@ namespace Core.Utils
             return GetIdFieldName(typeof(TModel));
         }
 
-        public static string GetModelTableName(Type modelType)
+        public static string GetModelTableName(Type modelType, bool flag)
         {
-            if (_tableNamesCache.ContainsKey(modelType))
-                return _tableNamesCache[modelType];
             var attr = modelType.GetCustomAttribute<TableAttribute>();
             string res;
             if (attr == null)
                 res = modelType.Name;
             else
                 res = attr.Name;
+
+            if (flag)
+                res = res.Replace("[", "").Replace("]", "");
             _tableNamesCache[modelType] = res;
             return res;
         }
 
-        public static string GetModelTableName<TModel>() where TModel : BaseModel
+        public static string GetModelTableName<TModel>(bool flag = false) where TModel : BaseModel
         {
-            return GetModelTableName(typeof(TModel));
+            return GetModelTableName(typeof(TModel), flag);
         }
 
-        public static string GetModelTableName(this BaseModel model)
+        public static string GetModelTableName(this BaseModel model, bool flag = false)
         {
-            return GetModelTableName(model.GetType());
+            return GetModelTableName(model.GetType(), flag);
         }
 
         internal static List<MappingInfo> GetMappingInfo<TModel>() where TModel : BaseModel

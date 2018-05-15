@@ -9,6 +9,8 @@ namespace GUI.ViewModels
 {
     public class GoodsViewModel : VmDictionary<Goods>
     {
+        private Task _dataLoading;
+
         public GoodsViewModel(ShopManager shopManager) : base(shopManager)
         {
             Title = "Справочник товаров";
@@ -16,8 +18,15 @@ namespace GUI.ViewModels
 
         public override async Task LoadData()
         {
-            await base.LoadData();
-            await LoadDetails();
+            _dataLoading = base.LoadData().ContinueWith(t => LoadDetails());
+            await _dataLoading;
+        }
+
+        public async Task WaitForDataLoading()
+        {
+            if (_dataLoading == null)
+                return;
+            await _dataLoading;
         }
 
         private async Task LoadDetails()

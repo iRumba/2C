@@ -34,9 +34,9 @@ namespace Core.Repositories
                     {
                         if (await reader.ReadAsync())
                         {
-                            var price = await reader.IsDBNullAsync(0) ? default(decimal?) : reader.GetDecimal(0);
+                            var price = await reader.IsDBNullAsync(0) ? default(double?) : await reader.GetFieldValueAsync<double>(0);
                             var balance = reader.GetInt32(1);
-                            var res = new Tuple<decimal?, int>(price, balance);
+                            var res = new Tuple<decimal?, int>((decimal?)price, balance);
                             return res;
                         }
                         return null;
@@ -75,9 +75,9 @@ namespace Core.Repositories
                         while (await reader.ReadAsync())
                         {
                             var id = await reader.GetFieldValueAsync<int>(0);
-                            var price = await reader.IsDBNullAsync(1) ? default(decimal?) : await reader.GetFieldValueAsync<decimal>(1);
+                            var price = await reader.IsDBNullAsync(1) ? default(double?) : await reader.GetFieldValueAsync<double>(1);
                             var balance = await reader.GetFieldValueAsync<int>(2);
-                            res.Add(new Tuple<int, decimal?, int>(id, price, balance));
+                            res.Add(new Tuple<int, decimal?, int>(id, (decimal?)price, balance));
                         }
                         return res;
                     }

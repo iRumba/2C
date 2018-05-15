@@ -1,22 +1,29 @@
-﻿using Core.Models;
+﻿using Core;
+using Core.Models;
+using GUI.BaseViewModels;
 using GUI.BaseViews;
+using GUI.Interfaces;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Commands;
 using Prism.Mvvm;
+using System.Windows;
 
 namespace GUI.ViewModels
 {
-    public class MainWindowViewModel : BindableBase
+    public class MainWindowViewModel : VmBase, IShopWorker
     {
-        private string _title = "Главное окно";
-
-        public MainWindowViewModel()
+        public MainWindowViewModel(ShopManager shopManager)
         {
+            Title = "Главное окно";
+            ShopManager = shopManager;
             ShowGoodsCommand = new DelegateCommand(ShowDictionary<Goods>);
             ShowWorkersCommand = new DelegateCommand(ShowDictionary<Worker>);
             ShowPurveyorsCommand = new DelegateCommand(ShowDictionary<Purveyor>);
             ShowPurchasersCommand = new DelegateCommand(ShowDictionary<Purchaser>);
             ShowArrivalsCommand = new DelegateCommand(ShowDictionary<Arrival>);
+            ShowOrdersCommand = new DelegateCommand(ShowDictionary<Order>);
+            CreateDbCommand = new DelegateCommand(CreateDb);
+            
         }
 
         public DelegateCommand ShowGoodsCommand { get; }
@@ -24,12 +31,10 @@ namespace GUI.ViewModels
         public DelegateCommand ShowPurveyorsCommand { get; }
         public DelegateCommand ShowPurchasersCommand { get; }
         public DelegateCommand ShowArrivalsCommand { get; }
+        public DelegateCommand ShowOrdersCommand { get; }
+        public DelegateCommand CreateDbCommand { get; }
 
-        public string Title
-        {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
-        }
+        public ShopManager ShopManager { get; }
 
         async void ShowDictionary<TModel>() where TModel : BaseModel
         {
@@ -37,6 +42,13 @@ namespace GUI.ViewModels
             var task = view.ViewModel.LoadData();
             view.ShowDialog();
             await task;
+        }
+
+        async void CreateDb()
+        {
+            await ShopManager.CreateDatabase();
+            await ShopManager.SetupDatabase();
+            MessageBox.Show("База успешно создана");
         }
     }
 }

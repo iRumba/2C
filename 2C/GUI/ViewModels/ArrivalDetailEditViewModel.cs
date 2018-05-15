@@ -13,14 +13,13 @@ namespace GUI.ViewModels
     public class ArrivalDetailEditViewModel : VmAdapter<ArrivalDetails>
     {
         private int _amount;
-        private decimal _price;
         private GoodsEditViewModel _goods;
         private ArrivalEditViewModel _arrival;
+        private decimal _price;
 
         public ArrivalDetailEditViewModel()
         {
-
-            Title = "Редактирование деталей поставок";
+            Title = "Редактирование деталей поставки";
             SelectGoodsCommand = new DelegateCommand<GoodsEditViewModel>(SelectHelper.Assign);
         }
 

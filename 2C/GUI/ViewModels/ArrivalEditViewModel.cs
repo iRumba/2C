@@ -41,8 +41,8 @@ namespace GUI.ViewModels
         }
 
         public DelegateCommand AddDetailCommand { get; }
-        public DelegateCommand<ArrivalDetailEditViewModel> EditDetailCommand { get; }
         public DelegateCommand<PurveyorEditViewModel> SelectPurveyorCommand { get; }
+        public DelegateCommand<ArrivalDetailEditViewModel> EditDetailCommand { get; }
         public DelegateCommand<ArrivalDetailEditViewModel> RemoveDetailCommand { get; }
 
         public DateTime Date { get => _date; set => SetProperty(ref _date, value); }

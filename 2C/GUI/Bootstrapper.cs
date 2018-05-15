@@ -33,7 +33,7 @@ namespace GUI
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
-            var conf = ConfigManager.GetDefault();
+            var conf = ConfigManager.LoadFromFile("constr.txt");
             Container.RegisterInstance(conf);
             Container.Register<ShopManager>();
 
@@ -57,6 +57,11 @@ namespace GUI
             Container.Register<EditView<Arrival>, ArrivalEditView>();
             Container.Register<DictionaryView<Arrival>, ArrivalsView>();
             Container.Register<EditView<ArrivalDetails>, ArrivalDetailEditView>();
+
+            Container.Register<VmAdapter<Order>, OrderEditViewModel>();
+            Container.Register<EditView<Order>, OrderEditView>();
+            Container.Register<DictionaryView<Order>, OrdersView>();
+            Container.Register<EditView<OrderDetails>, OrderDetailEditView>();
         }
     }
 }

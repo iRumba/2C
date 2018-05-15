@@ -15,7 +15,7 @@ namespace Core.Repositories
         {
         }
 
-        public async Task<List<OrderDetails>> GetByArrivalId(int orderId)
+        public async Task<List<OrderDetails>> GetByOrderId(int orderId)
         {
             var parameters = new List<SqlParameter>();
 

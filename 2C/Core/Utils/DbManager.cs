@@ -27,7 +27,7 @@ namespace Core.Utils
         {
             var csb = new SqlConnectionStringBuilder(_configuration.ConnectionString);
             var dbName = csb.InitialCatalog;
-            csb.InitialCatalog = null;
+            csb.InitialCatalog = string.Empty;
             using (var con = new SqlConnection(csb.ToString()))
             {
                 await con.OpenAsync();
@@ -48,7 +48,7 @@ namespace Core.Utils
         {
             var csb = new SqlConnectionStringBuilder(_configuration.ConnectionString);
             var dbName = csb.InitialCatalog;
-            csb.InitialCatalog = null;
+            csb.InitialCatalog = string.Empty;
             using (var con = new SqlConnection(csb.ToString()))
             {
                 await con.OpenAsync();
@@ -82,7 +82,7 @@ namespace Core.Utils
             try
             {
                 var csb = new SqlConnectionStringBuilder(_configuration.ConnectionString);
-                csb.InitialCatalog = null;
+                csb.InitialCatalog = string.Empty;
                 using (var con = new SqlConnection(csb.ToString()))
                 {
                     await con.OpenAsync();
@@ -96,7 +96,10 @@ namespace Core.Utils
                 }
                 res = CheckConnectionResult.Success;
             }
-            catch { }
+            catch(Exception ex)
+            {
+
+            }
             return res;
         }
 
@@ -110,7 +113,8 @@ namespace Core.Utils
                 com.Transaction = transaction;
                 try
                 {
-                    foreach(var query in GetCreateScripts())
+                    var scripts = GetCreateScripts();
+                    foreach (var query in scripts)
                     {
                         com.CommandText = query;
                         await com.ExecuteNonQueryAsync();
@@ -253,7 +257,7 @@ ALTER TABLE [dbo].[{ModelHelper.GetModelTableName<ArrivalDetails>()}] CHECK CONS
         string GetCreateOrderTableScript()
         {
             return $@"{GetCreateHeader()}
-CREATE TABLE [dbo].[{ModelHelper.GetModelTableName<Order>()}](
+CREATE TABLE [dbo].{ModelHelper.GetModelTableName<Order>()}(
 	[{ModelHelper.GetIdFieldName<Order>()}] [int] IDENTITY(1,1) NOT NULL,
 	[{ModelHelper.GetColumnName<Order>(nameof(Order.Purchaser))}] [int] NOT NULL,
 	[{ModelHelper.GetColumnName<Order>(nameof(Order.Worker))}] [int] NOT NULL,
@@ -262,21 +266,21 @@ CREATE TABLE [dbo].[{ModelHelper.GetModelTableName<Order>()}](
 	[{ModelHelper.GetColumnName<Order>(nameof(Order.ArrivalDate))}] [datetime] NULL,
 	[{ModelHelper.GetColumnName<Order>(nameof(Order.DeliveryMethod))}] [varchar](20) NOT NULL,
 	[{ModelHelper.GetColumnName<Order>(nameof(Order.PaymentMethod))}] [varchar](20) NOT NULL,
- CONSTRAINT [PK_{ModelHelper.GetModelTableName<Order>()}] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_{ModelHelper.GetModelTableName<Order>(true)}] PRIMARY KEY CLUSTERED 
 (
 	[{ModelHelper.GetIdFieldName<Order>()}] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
-ALTER TABLE [dbo].[{ModelHelper.GetModelTableName<Order>()}]  WITH CHECK ADD  CONSTRAINT [FK_{ModelHelper.GetModelTableName<Order>()}_{ModelHelper.GetModelTableName<Purchaser>()}] FOREIGN KEY([{ModelHelper.GetColumnName<Order>(nameof(Order.Purchaser))}])
+ALTER TABLE [dbo].{ModelHelper.GetModelTableName<Order>()}  WITH CHECK ADD  CONSTRAINT [FK_{ModelHelper.GetModelTableName<Order>(true)}_{ModelHelper.GetModelTableName<Purchaser>()}] FOREIGN KEY([{ModelHelper.GetColumnName<Order>(nameof(Order.Purchaser))}])
 REFERENCES [dbo].[{ModelHelper.GetModelTableName<Purchaser>()}] ([{ModelHelper.GetIdFieldName<Purchaser>()}])
 
-ALTER TABLE [dbo].[{ModelHelper.GetModelTableName<Order>()}] CHECK CONSTRAINT [FK_{ModelHelper.GetModelTableName<Order>()}_{ModelHelper.GetModelTableName<Purchaser>()}]
+ALTER TABLE [dbo].{ModelHelper.GetModelTableName<Order>()} CHECK CONSTRAINT [FK_{ModelHelper.GetModelTableName<Order>(true)}_{ModelHelper.GetModelTableName<Purchaser>()}]
 
-ALTER TABLE [dbo].[{ModelHelper.GetModelTableName<Order>()}]  WITH CHECK ADD  CONSTRAINT [FK_{ModelHelper.GetModelTableName<Order>()}_{ModelHelper.GetModelTableName<Worker>()}] FOREIGN KEY([{ModelHelper.GetColumnName<Order>(nameof(Order.Worker))}])
+ALTER TABLE [dbo].{ModelHelper.GetModelTableName<Order>()}  WITH CHECK ADD  CONSTRAINT [FK_{ModelHelper.GetModelTableName<Order>(true)}_{ModelHelper.GetModelTableName<Worker>()}] FOREIGN KEY([{ModelHelper.GetColumnName<Order>(nameof(Order.Worker))}])
 REFERENCES [dbo].[{ModelHelper.GetModelTableName<Worker>()}] ([{ModelHelper.GetIdFieldName<Worker>()}])
 
-ALTER TABLE [dbo].[{ModelHelper.GetModelTableName<Order>()}] CHECK CONSTRAINT [FK_{ModelHelper.GetModelTableName<Order>()}_{ModelHelper.GetModelTableName<Worker>()}]";
+ALTER TABLE [dbo].{ModelHelper.GetModelTableName<Order>()} CHECK CONSTRAINT [FK_{ModelHelper.GetModelTableName<Order>(true)}_{ModelHelper.GetModelTableName<Worker>()}]";
         }
 
         string GetCreateOrderDetailsTableScript()
@@ -299,10 +303,10 @@ REFERENCES [dbo].[{ModelHelper.GetModelTableName<Goods>()}] ([{ModelHelper.GetId
 
 ALTER TABLE [dbo].[{ModelHelper.GetModelTableName<OrderDetails>()}] CHECK CONSTRAINT [FK_{ModelHelper.GetModelTableName<OrderDetails>()}_{ModelHelper.GetModelTableName<Goods>()}]
 
-ALTER TABLE [dbo].[{ModelHelper.GetModelTableName<OrderDetails>()}]  WITH CHECK ADD  CONSTRAINT [FK_{ModelHelper.GetModelTableName<OrderDetails>()}_{ModelHelper.GetModelTableName<Order>()}] FOREIGN KEY([{ModelHelper.GetColumnName<OrderDetails>(nameof(OrderDetails.Order))}])
-REFERENCES [dbo].[{ModelHelper.GetModelTableName<Order>()}] ([{ModelHelper.GetIdFieldName<Order>()}])
+ALTER TABLE [dbo].[{ModelHelper.GetModelTableName<OrderDetails>()}]  WITH CHECK ADD  CONSTRAINT [FK_{ModelHelper.GetModelTableName<OrderDetails>()}_{ModelHelper.GetModelTableName<Order>(true)}] FOREIGN KEY([{ModelHelper.GetColumnName<OrderDetails>(nameof(OrderDetails.Order))}])
+REFERENCES [dbo].{ModelHelper.GetModelTableName<Order>()} ([{ModelHelper.GetIdFieldName<Order>()}])
 
-ALTER TABLE [dbo].[{ModelHelper.GetModelTableName<OrderDetails>()}] CHECK CONSTRAINT [FK_{ModelHelper.GetModelTableName<OrderDetails>()}_{ModelHelper.GetModelTableName<Order>()}]";
+ALTER TABLE [dbo].[{ModelHelper.GetModelTableName<OrderDetails>()}] CHECK CONSTRAINT [FK_{ModelHelper.GetModelTableName<OrderDetails>()}_{ModelHelper.GetModelTableName<Order>(true)}]";
         }
 
         string GetCreateGoodsDetailsViewScript()

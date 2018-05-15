@@ -55,6 +55,11 @@ namespace Core
             await GetDbManager().SetupDatabase();
         }
 
+        public async Task CreateDatabase()
+        {
+            await GetDbManager().CreateDatabase();
+        }
+
         public async Task CreateDbIfNotExists()
         {
             var dbManager = GetDbManager();
@@ -66,8 +71,9 @@ namespace Core
                 case CheckConnectionResult.ServerConnectionError:
                     throw new InvalidOperationException("Невозможно соединиться с сервером базы данных");
                 case CheckConnectionResult.DatabaseConnectionError:
-                    await dbManager.CreateDatabase();
-                    await dbManager.SetupDatabase();
+                    //await dbManager.DropDatabase();
+                    await CreateDatabase();
+                    await SetupDatabase();
                     break;
             }
         }

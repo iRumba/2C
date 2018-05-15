@@ -21,11 +21,11 @@
 
             <Button Content="Поставки товара" Command="{Binding ShowArrivalsCommand}"/>
             <Button Content="Список работников" Command="{Binding ShowWorkersCommand}"/>
-            <Button Content="Заказы" Command="{Binding ShowGoodsCommand}"/>
+            <Button Content="Заказы" Command="{Binding ShowOrdersCommand}"/>
             <Button Content="Список поставщиков" Command="{Binding ShowPurveyorsCommand}"/>
-            <Button Content="Отчеты" Command="{Binding ShowGoodsCommand}"/>
+            <Button Content="Отчеты"/>
             <Button Content="Список клиентов" Command="{Binding ShowPurchasersCommand}"/>
-            <Button Content="Печать штрих-кодов" Command="{Binding ShowGoodsCommand}"/>
+            <Button Content="Создать БД" Command="{Binding CreateDbCommand}"/>
         </UniformGrid>
     </Grid>
 </Window>

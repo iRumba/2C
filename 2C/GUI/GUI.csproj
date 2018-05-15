@@ -64,6 +64,9 @@
     <Compile Include="ViewModels\ArrivalDetailEditViewModel.cs" />
     <Compile Include="ViewModels\ArrivalEditViewModel.cs" />
     <Compile Include="ViewModels\ArrivalsViewModel.cs" />
+    <Compile Include="ViewModels\OrderDetailEditViewModel.cs" />
+    <Compile Include="ViewModels\OrderEditViewModel.cs" />
+    <Compile Include="ViewModels\OrdersViewModel.cs" />
     <Compile Include="ViewModels\PurchaserEditViewModel.cs" />
     <Compile Include="ViewModels\PurchasersViewModel.cs" />
     <Compile Include="BaseViewModels\VmBase.cs" />
@@ -79,6 +82,15 @@
     </Compile>
     <Compile Include="Views\ArrivalsView.xaml.cs">
       <DependentUpon>ArrivalsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrderDetailEditView.xaml.cs">
+      <DependentUpon>OrderDetailEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrderEditView.xaml.cs">
+      <DependentUpon>OrderEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrdersView.xaml.cs">
+      <DependentUpon>OrdersView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PurchaserEditView.xaml.cs">
       <DependentUpon>PurchaserEditView.xaml</DependentUpon>
@@ -144,6 +156,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\OrderDetailEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrderEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrdersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\PurchaserEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

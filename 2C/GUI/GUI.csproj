@@ -64,6 +64,7 @@
     <Compile Include="ViewModels\ArrivalDetailEditViewModel.cs" />
     <Compile Include="ViewModels\ArrivalEditViewModel.cs" />
     <Compile Include="ViewModels\ArrivalsViewModel.cs" />
+    <Compile Include="ViewModels\MonthReportViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailEditViewModel.cs" />
     <Compile Include="ViewModels\OrderEditViewModel.cs" />
     <Compile Include="ViewModels\OrdersViewModel.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="BaseViewModels\VmDictionary.cs" />
     <Compile Include="ViewModels\PurveyorEditViewModel.cs" />
     <Compile Include="ViewModels\PurveyorsViewModel.cs" />
+    <Compile Include="ViewModels\ReportViewModel.cs" />
     <Compile Include="ViewModels\WorkersEditViewModel.cs" />
     <Compile Include="Views\ArrivalDetailEditView.xaml.cs">
       <DependentUpon>ArrivalDetailEditView.xaml</DependentUpon>

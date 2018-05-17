@@ -23,7 +23,7 @@
             <Button Content="Список работников" Command="{Binding ShowWorkersCommand}"/>
             <Button Content="Заказы" Command="{Binding ShowOrdersCommand}"/>
             <Button Content="Список поставщиков" Command="{Binding ShowPurveyorsCommand}"/>
-            <Button Content="Отчеты"/>
+            <Button Content="Отчеты" Command="{Binding ShowReportCommand}"/>
             <Button Content="Список клиентов" Command="{Binding ShowPurchasersCommand}"/>
             <Button Content="Создать БД" Command="{Binding CreateDbCommand}"/>
         </UniformGrid>

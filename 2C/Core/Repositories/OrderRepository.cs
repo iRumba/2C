@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Core.Repositories
 {
-    internal class OrderRepository : BaseRepository<Order>
+    public class OrderRepository : BaseRepository<Order>
     {
         public OrderRepository(DbManager dbManager) : base(dbManager)
         {
@@ -34,7 +34,7 @@ namespace Core.Repositories
             parameters.Add(param1);
             parameters.Add(param2);
 
-            var query = $"{GetSimpleQuery()} WHERE {dateFieldName}<={param1.ParameterName} AND {dateFieldName}={param2.ParameterName}";
+            var query = $"{GetSimpleQuery()} WHERE {dateFieldName}>={param1.ParameterName} AND {dateFieldName}<{param2.ParameterName}";
 
             var res = await QueryToModelList(query, parameters);
 

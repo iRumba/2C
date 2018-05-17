@@ -3,6 +3,7 @@ using Core.Models;
 using GUI.BaseViewModels;
 using GUI.BaseViews;
 using GUI.Interfaces;
+using GUI.Views;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -23,7 +24,7 @@ namespace GUI.ViewModels
             ShowArrivalsCommand = new DelegateCommand(ShowDictionary<Arrival>);
             ShowOrdersCommand = new DelegateCommand(ShowDictionary<Order>);
             CreateDbCommand = new DelegateCommand(CreateDb);
-            
+            ShowReportCommand = new DelegateCommand(ShowReport);
         }
 
         public DelegateCommand ShowGoodsCommand { get; }
@@ -33,6 +34,7 @@ namespace GUI.ViewModels
         public DelegateCommand ShowArrivalsCommand { get; }
         public DelegateCommand ShowOrdersCommand { get; }
         public DelegateCommand CreateDbCommand { get; }
+        public DelegateCommand ShowReportCommand { get; }
 
         public ShopManager ShopManager { get; }
 
@@ -49,6 +51,12 @@ namespace GUI.ViewModels
             await ShopManager.CreateDatabase();
             await ShopManager.SetupDatabase();
             MessageBox.Show("База успешно создана");
+        }
+
+        private void ShowReport()
+        {
+            var view = ServiceLocator.Current.GetInstance<ReportView>();
+            view.ShowDialog();
         }
     }
 }

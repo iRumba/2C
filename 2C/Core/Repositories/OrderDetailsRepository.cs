@@ -30,7 +30,7 @@ namespace Core.Repositories
             return res;
         }
 
-        public async Task<List<OrderDetails>> GetByArrivalId(IEnumerable<int> orderIds)
+        public async Task<List<OrderDetails>> GetByOrderId(IEnumerable<int> orderIds)
         {
             var parameters = new List<SqlParameter>();
 

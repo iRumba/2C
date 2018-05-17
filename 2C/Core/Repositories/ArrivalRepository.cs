@@ -37,7 +37,7 @@ namespace Core.Repositories
             parameters.Add(param1);
             parameters.Add(param2);
 
-            var query = $"{GetSimpleQuery()} WHERE {dateFieldName}<={param1.ParameterName} AND {dateFieldName}={param2.ParameterName}";
+            var query = $"{GetSimpleQuery()} WHERE {dateFieldName}>={param1.ParameterName} AND {dateFieldName}<{param2.ParameterName}";
 
             var res = await QueryToModelList(query, parameters);
 

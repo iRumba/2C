@@ -38,13 +38,13 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <Border Width="200" Height="200" Background="LightGray" Margin="5">
+                <Border Width="200" Height="150" Background="LightGray" Margin="5">
                     <Image Stretch="Uniform" Source="{Binding Image}" Name="img"/>
                 </Border>
                 
                 <StackPanel Grid.Column="1">
-                    <Button Content="Задать изображение"/>
-                    <Button Content="Удалить изображение"/>
+                    <Button Content="Задать изображение" Visibility="Collapsed"/>
+                    <Button Content="Удалить изображение" Visibility="Collapsed"/>
                 </StackPanel>
                 <Label Content="Наименование:" Grid.Row="1" HorizontalAlignment="Right"/>
                 <TextBox Text="{Binding Name}" Grid.Column="1" Grid.Row="1"/>

@@ -1,0 +1,58 @@
+﻿<bv:BaseView x:Class="GUI.Views.PrintingView"
+             x:TypeArguments="vm:PrintingViewModel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:bv="clr-namespace:GUI.BaseViews"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:GUI.ViewModels"
+             xmlns:local="clr-namespace:GUI.Views"
+             mc:Ignorable="d"
+             Title="{Binding Title}" Height="450" Width="800"
+             d:DataContext="{d:DesignInstance vm:PrintingViewModel}">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom">
+            <Button Content="Печатать" Command="{Binding PrintCommand}"
+                    CommandParameter="{Binding ElementName=doc}"/>
+        </StackPanel>
+        <FlowDocumentScrollViewer>
+            <FlowDocument Name="doc">
+                <BlockUIContainer >
+                    <Image Source="E:\C\03.07.2017\Images\^0AB69E541803D3DF24BB04B6680F973E87EAD1F93FC59F47E4^pimgpsh_fullsize_distr.jpg"
+                   Width="200"/>
+                </BlockUIContainer>
+                <BlockUIContainer>
+                    <Image Source="E:\C\03.07.2017\Images\^0AB69E541803D3DF24BB04B6680F973E87EAD1F93FC59F47E4^pimgpsh_fullsize_distr.jpg"
+                   Width="200"/>
+                </BlockUIContainer>
+                <BlockUIContainer>
+                    <Image Source="E:\C\03.07.2017\Images\^0AB69E541803D3DF24BB04B6680F973E87EAD1F93FC59F47E4^pimgpsh_fullsize_distr.jpg"
+                   Width="200"/>
+                </BlockUIContainer>
+                <BlockUIContainer>
+                    <Image Source="E:\C\03.07.2017\Images\^0AB69E541803D3DF24BB04B6680F973E87EAD1F93FC59F47E4^pimgpsh_fullsize_distr.jpg"
+                   Width="200"/>
+                </BlockUIContainer>
+                <BlockUIContainer>
+                    <Image Source="E:\C\03.07.2017\Images\^0AB69E541803D3DF24BB04B6680F973E87EAD1F93FC59F47E4^pimgpsh_fullsize_distr.jpg"
+                   Width="200"/>
+                </BlockUIContainer>
+                <BlockUIContainer>
+                    <Image Source="E:\C\03.07.2017\Images\^0AB69E541803D3DF24BB04B6680F973E87EAD1F93FC59F47E4^pimgpsh_fullsize_distr.jpg"
+                   Width="200"/>
+                </BlockUIContainer>
+                <BlockUIContainer>
+                    <Image Source="E:\C\03.07.2017\Images\^0AB69E541803D3DF24BB04B6680F973E87EAD1F93FC59F47E4^pimgpsh_fullsize_distr.jpg"
+                   Width="200"/>
+                </BlockUIContainer>
+                <BlockUIContainer>
+                    <Image Source="E:\C\03.07.2017\Images\^0AB69E541803D3DF24BB04B6680F973E87EAD1F93FC59F47E4^pimgpsh_fullsize_distr.jpg"
+                   Width="200"/>
+                </BlockUIContainer>
+            </FlowDocument>
+        </FlowDocumentScrollViewer>
+    </DockPanel>
+
+</bv:BaseView>

@@ -25,6 +25,7 @@
             <Button Content="Список поставщиков" Command="{Binding ShowPurveyorsCommand}"/>
             <Button Content="Отчеты" Command="{Binding ShowReportCommand}"/>
             <Button Content="Список клиентов" Command="{Binding ShowPurchasersCommand}"/>
+            <Button Content="печать" Command="{Binding ShowPrintingCommand}"/>
             <Button Content="Создать БД" Command="{Binding CreateDbCommand}"/>
         </UniformGrid>
     </Grid>

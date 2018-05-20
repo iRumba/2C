@@ -7,6 +7,7 @@ using GUI.Views;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Commands;
 using Prism.Mvvm;
+using System;
 using System.Windows;
 
 namespace GUI.ViewModels
@@ -25,6 +26,7 @@ namespace GUI.ViewModels
             ShowOrdersCommand = new DelegateCommand(ShowDictionary<Order>);
             CreateDbCommand = new DelegateCommand(CreateDb);
             ShowReportCommand = new DelegateCommand(ShowReport);
+            ShowPrintingCommand = new DelegateCommand(ShowPrinting);
         }
 
         public DelegateCommand ShowGoodsCommand { get; }
@@ -35,6 +37,7 @@ namespace GUI.ViewModels
         public DelegateCommand ShowOrdersCommand { get; }
         public DelegateCommand CreateDbCommand { get; }
         public DelegateCommand ShowReportCommand { get; }
+        public DelegateCommand ShowPrintingCommand { get; }
 
         public ShopManager ShopManager { get; }
 
@@ -56,6 +59,14 @@ namespace GUI.ViewModels
         private void ShowReport()
         {
             var view = ServiceLocator.Current.GetInstance<ReportView>();
+            view.ViewModel.Year = DateTime.Now.Year;
+            view.ViewModel.CreateReportCommand.Execute(view.ViewModel.Year);
+            view.ShowDialog();
+        }
+
+        private void ShowPrinting()
+        {
+            var view = ServiceLocator.Current.GetInstance<PrintingView>();
             view.ShowDialog();
         }
     }

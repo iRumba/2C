@@ -38,6 +38,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -64,6 +66,8 @@
     <Compile Include="ViewModels\ArrivalDetailEditViewModel.cs" />
     <Compile Include="ViewModels\ArrivalEditViewModel.cs" />
     <Compile Include="ViewModels\ArrivalsViewModel.cs" />
+    <Compile Include="ViewModels\PrintingViewModel.cs" />
+    <Compile Include="ViewModels\PrintPreparationViewModel.cs" />
     <Compile Include="ViewModels\MonthReportViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailEditViewModel.cs" />
     <Compile Include="ViewModels\OrderEditViewModel.cs" />
@@ -93,6 +97,9 @@
     </Compile>
     <Compile Include="Views\OrdersView.xaml.cs">
       <DependentUpon>OrdersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PrintingView.xaml.cs">
+      <DependentUpon>PrintingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PurchaserEditView.xaml.cs">
       <DependentUpon>PurchaserEditView.xaml</DependentUpon>
@@ -173,6 +180,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\PrintingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\PurchaserEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -229,6 +240,9 @@
     <PackageReference Include="Prism.DryIoc" Version="6.3.0" />
     <PackageReference Include="Prism.Wpf">
       <Version>6.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="ZXing.Net">
+      <Version>0.16.4</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

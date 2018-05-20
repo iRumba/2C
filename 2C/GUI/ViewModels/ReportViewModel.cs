@@ -43,8 +43,18 @@ namespace GUI.ViewModels
             return year.HasValue && year > 0 && year < 10000;
         }
 
+        private void ClearMonthList()
+        {
+            for (var i = 0; i < 12; i++)
+            {
+                MonthList[i].ArrivalsTotal = 0;
+                MonthList[i].OrdersTotal = 0;
+            }
+        }
+
         private async void CreateReport(int? y)
         {
+            ClearMonthList();
             var year = y.Value;
             var fromDate = new DateTime(year, 1, 1);
             var toDate = year < 9999 ? new DateTime(year + 1, 1, 1) : new DateTime(year, 12, 31);

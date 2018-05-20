@@ -36,11 +36,10 @@
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Grid Width="70" Height="70">
-                                <Border
-                        Background="LightGray"/>
-                                <Image Stretch="UniformToFill" Source="{Binding Image}" Width="70" Height="70" Name="img"/>
-                            </Grid>
+                                <Border  Width="150" Height="70"
+                        Background="LightGray" BorderThickness="1" BorderBrush="Gray">
+                                    <Image Stretch="Uniform" Source="{Binding Image}" Name="img"/>
+                                </Border>
 
                             <StackPanel HorizontalAlignment="Stretch" Margin="5" Grid.Column="1">
                                 <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
